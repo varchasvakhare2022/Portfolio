@@ -4,7 +4,7 @@ A modern, interactive portfolio website showcasing full-stack development expert
 
 ## 🚀 Live Demo
 
-[View Portfolio](https://your-portfolio-url.com)
+[View Portfolio](https://varchasvakhare2022.github.io/Portfolio/)
 
 ## ✨ Features
 
@@ -64,23 +64,6 @@ A modern, interactive portfolio website showcasing full-stack development expert
 - File validation and confirmation popups
 - Smooth animations and visual feedback
 
-## 🚀 Getting Started
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/portfolio.git
-   cd portfolio
-   ```
-
-2. **Open in browser**
-   - Simply open `index.html` in your web browser
-   - No build process or dependencies required
-
-3. **Customize**
-   - Update personal information in `index.html`
-   - Modify colors and styling in `assets/css/styles.css`
-   - Add your projects and case studies
-   - Update social media links in the footer
 
 
 ## 📱 Responsive Design
