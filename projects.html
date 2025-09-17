@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects — Varchasva Khare</title>
+    <meta name="description" content="Explore the portfolio of Varchasva Khare - Independent Designer & Developer" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" href="/assets/img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="siteHeader">
+      <div class="container header-inner">
+        <div class="brand-container">
+          <a href="/index.html#top" class="brand">Varchasva Khare</a>
+          <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span></span><span></span>
+        </button>
+        <nav class="site-nav" id="siteNav">
+          <a href="/projects.html" class="is-active">Projects</a>
+          <a href="/index.html#about">About</a>
+          <button class="btn btn--sm" data-open-contact>Contact</button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- Scroll Progress -->
+      <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__bar" id="scrollBar"></div></div>
+      
+      <!-- Hero Section -->
+      <section class="section hero" id="hero">
+        <div class="container">
+          <div class="hero-inner">
+            <div class="hero-content">
+              <div class="eyebrow">Portfolio</div>
+              <h1 class="headline">
+                <span class="flip-words">
+                  <span class="word is-active">Selected</span>
+                  <span class="word">Featured</span>
+                  <span class="word">Recent</span>
+                </span>
+                <br>Projects
+              </h1>
+              <p class="lede">A collection of digital products, brands, and experiences I've crafted with attention to detail and user-centered design.</p>
+              
+              <div class="cta-row">
+                <a href="#work" class="btn">View All Projects</a>
+                <button class="btn btn--ghost" data-open-contact>Start a Project</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Grid Section -->
+      <section class="section work reveal" id="work">
+        <div class="container">
+          <!-- Section Header -->
+          <div class="section-head">
+            <h2>Featured Work</h2>
+            <p>Explore my latest projects across design, development, and brand strategy.</p>
+          </div>
+
+          <!-- Filter Controls -->
+          <div class="work-controls" aria-label="Work controls">
+            <div class="filters" role="tablist" aria-controls="workGrid">
+              <button class="filter-btn is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+              <button class="filter-btn" data-filter="design" role="tab" aria-selected="false">Design</button>
+              <button class="filter-btn" data-filter="development" role="tab" aria-selected="false">Development</button>
+              <button class="filter-btn" data-filter="brand" role="tab" aria-selected="false">Brand</button>
+              <button class="filter-btn" data-filter="ux" role="tab" aria-selected="false">UX</button>
+            </div>
+            <div class="controls-right">
+              <button class="btn btn--sm" id="workShuffle" aria-label="Shuffle projects">Shuffle</button>
+              <span class="work-count" id="workCount" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <!-- Projects Grid -->
+          <div class="work-grid" id="workGrid">
+            <!-- Project 1 -->
+            <a class="card" href="#" data-open-project aria-label="E-Commerce Platform" data-title="E-Commerce Platform" data-subtitle="Full-stack development, UX design" data-image="/assets/img/sample1.svg" data-tags="design,development,ux">
+              <div class="card-media" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="project-overlay">
+                  <div class="project-icon">🛒</div>
+                  <div class="project-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">UX</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>E-Commerce Platform</h3>
+                <span>Full-stack development, UX design</span>
+                <div class="project-meta">
+                  <span class="year">2024</span>
+                  <span class="category">Development</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 2 -->
+            <a class="card" href="#" data-open-project aria-label="Brand Identity" data-title="Brand Identity" data-subtitle="Visual identity, brand strategy" data-image="/assets/img/sample2.svg" data-tags="brand,design">
+              <div class="card-media" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <div class="project-overlay">
+                  <div class="project-icon">🎨</div>
+                  <div class="project-tags">
+                    <span class="tag">Brand</span>
+                    <span class="tag">Strategy</span>
+                    <span class="tag">Design</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>Brand Identity</h3>
+                <span>Visual identity, brand strategy</span>
+                <div class="project-meta">
+                  <span class="year">2024</span>
+                  <span class="category">Brand</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 3 -->
+            <a class="card" href="#" data-open-project aria-label="Mobile App" data-title="Mobile App" data-subtitle="iOS/Android, user experience" data-image="/assets/img/sample3.svg" data-tags="development,ux,design">
+              <div class="card-media" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <div class="project-overlay">
+                  <div class="project-icon">📱</div>
+                  <div class="project-tags">
+                    <span class="tag">React Native</span>
+                    <span class="tag">UX</span>
+                    <span class="tag">iOS</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>Mobile App</h3>
+                <span>iOS/Android, user experience</span>
+                <div class="project-meta">
+                  <span class="year">2024</span>
+                  <span class="category">Development</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 4 -->
+            <a class="card" href="#" data-open-project aria-label="Design System" data-title="Design System" data-subtitle="Component library, documentation" data-image="/assets/img/sample4.svg" data-tags="design,ux,development">
+              <div class="card-media" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <div class="project-overlay">
+                  <div class="project-icon">🎯</div>
+                  <div class="project-tags">
+                    <span class="tag">Design System</span>
+                    <span class="tag">Figma</span>
+                    <span class="tag">React</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>Design System</h3>
+                <span>Component library, documentation</span>
+                <div class="project-meta">
+                  <span class="year">2024</span>
+                  <span class="category">Design</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 5 -->
+            <a class="card" href="#" data-open-project aria-label="Web Application" data-title="Web Application" data-subtitle="Frontend development, performance" data-image="/assets/img/sample1.svg" data-tags="development,design">
+              <div class="card-media" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                <div class="project-overlay">
+                  <div class="project-icon">💻</div>
+                  <div class="project-tags">
+                    <span class="tag">Vue.js</span>
+                    <span class="tag">Performance</span>
+                    <span class="tag">PWA</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>Web Application</h3>
+                <span>Frontend development, performance</span>
+                <div class="project-meta">
+                  <span class="year">2023</span>
+                  <span class="category">Development</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 6 -->
+            <a class="card" href="#" data-open-project aria-label="UX Research" data-title="UX Research" data-subtitle="User research, usability testing" data-image="/assets/img/sample2.svg" data-tags="ux,design">
+              <div class="card-media" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                <div class="project-overlay">
+                  <div class="project-icon">🔍</div>
+                  <div class="project-tags">
+                    <span class="tag">Research</span>
+                    <span class="tag">Testing</span>
+                    <span class="tag">Analytics</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>UX Research</h3>
+                <span>User research, usability testing</span>
+                <div class="project-meta">
+                  <span class="year">2023</span>
+                  <span class="category">UX</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 7 -->
+            <a class="card" href="#" data-open-project aria-label="Dashboard Design" data-title="Dashboard Design" data-subtitle="Data visualization, interface design" data-image="/assets/img/sample3.svg" data-tags="design,ux,development">
+              <div class="card-media" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                <div class="project-overlay">
+                  <div class="project-icon">📊</div>
+                  <div class="project-tags">
+                    <span class="tag">Dashboard</span>
+                    <span class="tag">Data Viz</span>
+                    <span class="tag">D3.js</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>Dashboard Design</h3>
+                <span>Data visualization, interface design</span>
+                <div class="project-meta">
+                  <span class="year">2023</span>
+                  <span class="category">Design</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 8 -->
+            <a class="card" href="#" data-open-project aria-label="Landing Page" data-title="Landing Page" data-subtitle="Conversion optimization, design" data-image="/assets/img/sample4.svg" data-tags="design,development">
+              <div class="card-media" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                <div class="project-overlay">
+                  <div class="project-icon">🚀</div>
+                  <div class="project-tags">
+                    <span class="tag">Landing</span>
+                    <span class="tag">CRO</span>
+                    <span class="tag">A/B Testing</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>Landing Page</h3>
+                <span>Conversion optimization, design</span>
+                <div class="project-meta">
+                  <span class="year">2023</span>
+                  <span class="category">Design</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Section -->
+      <section class="section stats reveal">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" data-count="50">0</div>
+              <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-count="25">0</div>
+              <div class="stat-label">Happy Clients</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-count="3">0</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-count="100">0</div>
+              <div class="stat-label">% Satisfaction</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="false">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-dialog" role="document">
+        <button class="modal-close" data-close aria-label="Close">×</button>
+        <div class="modal-media" id="modalMedia"></div>
+        <div class="modal-body">
+          <h3 id="modalTitle">Project</h3>
+          <p id="modalSubtitle" class="muted">Subtitle</p>
+          <div class="modal-content">
+            <p>This is a detailed project description. Here you can showcase the challenges, solutions, and results of your work.</p>
+            <div class="modal-actions">
+              <a href="#" class="btn">View Live Site</a>
+              <a href="#" class="btn btn--ghost">View Code</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-modal="false">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-dialog" role="document">
+        <button class="modal-close" data-close aria-label="Close">×</button>
+        <div class="modal-body">
+          <h3>Start a Project</h3>
+          <p class="muted">Ready to bring your ideas to life? Let's discuss your project.</p>
+          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+            <div class="form-row">
+              <label for="cf_name">Name</label>
+              <input id="cf_name" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div class="form-row">
+              <label for="cf_email">Email</label>
+              <input id="cf_email" name="email" type="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-row">
+              <label for="cf_project">Project Type</label>
+              <select id="cf_project" name="project_type" required>
+                <option value="">Select project type</option>
+                <option value="web-design">Web Design</option>
+                <option value="web-development">Web Development</option>
+                <option value="brand-identity">Brand Identity</option>
+                <option value="ux-research">UX Research</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="cf_message">Message</label>
+              <textarea id="cf_message" name="message" rows="5" placeholder="Tell me about your project goals, timeline, and budget..." required></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn">Send Message</button>
+              <button type="button" class="btn btn--ghost" data-close>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Utility Elements -->
+    <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__bar" id="scrollBar"></div></div>
+    <div class="cursor" id="cursor" aria-hidden="true"><div class="cursor-ring"></div><div class="cursor-dot"></div></div>
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader-inner">
+        <div class="orbs"><span class="orb"></span><span class="orb"></span><span class="orb"></span></div>
+        <div class="loader-word" aria-label="Loading"><span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span></div>
+        <div class="bar"><span class="fill" id="loaderFill"></span></div>
+      </div>
+    </div>
+
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>

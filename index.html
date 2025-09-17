@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio — Varchasva Khare</title>
+    <meta name="description" content="Portfolio of Varchasva Khare — design, development, and delightful digital products." />
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Portfolio — Varchasva Khare" />
+    <meta property="og:description" content="Design, development, and delightful digital products." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="/assets/img/og-image.svg" />
+
+    <link rel="icon" href="/assets/img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+  <body class="homepage">
+
+    <header class="site-header" id="siteHeader">
+      <div class="container header-inner">
+        <div class="brand-container">
+          <a href="/index.html#top" class="brand">Varchasva Khare</a>
+          <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span></span><span></span>
+        </button>
+        <nav class="site-nav" id="siteNav">
+          <a href="#work">Projects</a>
+          <a href="#about">About</a>
+          <button class="btn btn--sm" data-open-contact>Contact</button>
+        </nav>
+      </div>
+    </header>
+
+
+    <main id="top">
+      <!-- Scroll Progress -->
+      <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__bar" id="scrollBar"></div></div>
+      <!-- Hero -->
+      <section class="section hero" id="hero">
+        <!-- Background Effects -->
+        <div class="hero-bg">
+          <canvas id="bg3d" aria-hidden="true"></canvas>
+          <div class="aurora"></div>
+          <svg class="bg-lines" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="linesGrad" x1="0" x2="1" y1="0" y2="0">
+                <stop stop-color="#2a2a2a" />
+                <stop offset="1" stop-color="#222" />
+              </linearGradient>
+            </defs>
+            <g fill="none" stroke="url(#linesGrad)" stroke-width="1">
+              <path d="M0 60 Q 300 120 600 60 T 1200 60" />
+              <path d="M0 120 Q 300 60 600 120 T 1200 120" />
+              <path d="M0 180 Q 300 240 600 180 T 1200 180" />
+              <path d="M0 240 Q 300 180 600 240 T 1200 240" />
+              <path d="M0 300 Q 300 360 600 300 T 1200 300" />
+            </g>
+          </svg>
+          <div class="spotlight" aria-hidden="true"></div>
+          <div class="meteors" id="meteors" aria-hidden="true"></div>
+        </div>
+        <div class="container hero-inner">
+          <div class="hero-content">
+          <div class="eyebrow">Independent Designer & Developer</div>
+          <h1 class="headline">
+            Crafting <span class="flip-words" id="flipWords" aria-live="polite">
+              <span class="word is-active">thoughtful</span>
+              <span class="word">bold</span>
+              <span class="word">accessible</span>
+              <span class="word">performant</span>
+            </span><br class="hide-sm" />digital<br class="hide-sm" />products that people love to use.
+          </h1>
+          <p class="lede">Strategy, brand, and engineering for modern web experiences.</p>
+          <div class="cta-row">
+              <a href="/assets/files/resume.pdf" class="btn magnet resume-icon" download draggable="true" data-file="resume.pdf">
+                <div class="icon-image">📄</div>
+                <div class="icon-label">Resume</div>
+                <div class="icon-tooltip">Drag me!</div>
+              </a>
+              <a href="/assets/files/cv.pdf" class="btn btn--ghost magnet cv-icon" download draggable="true" data-file="cv.pdf">
+                <div class="icon-image">📋</div>
+                <div class="icon-label">CV</div>
+                <div class="icon-tooltip">Drag me!</div>
+              </a>
+          </div>
+        </div>
+          <div></div>
+        </div>
+        
+        
+        <!-- Download zone -->
+        <div class="download-zone" id="downloadZone">
+          <div class="download-icon">⬇️</div>
+          <div class="download-label">Download</div>
+        </div>
+        
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee-track">
+            <span>Product Design</span>
+            <span>Web Apps</span>
+            <span>Brand Systems</span>
+            <span>Accessibility</span>
+            <span>Performance</span>
+            <span>Motion</span>
+            <span>Product Design</span>
+            <span>Web Apps</span>
+            <span>Brand Systems</span>
+            <span>Accessibility</span>
+            <span>Performance</span>
+            <span>Motion</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Deck -->
+      <section class="section projects reveal" id="work">
+        <div class="container projects-header">
+          <h2>Featured Projects</h2>
+          <p>Here are the key projects I've crafted and collaborated on, each representing a unique challenge solved through innovative design and development.</p>
+        </div>
+        
+        <div class="projects-marquee">
+          <div class="projects-track">
+            <div class="project-card">
+              <div class="card-container">
+                <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Make things float in air</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Hover over this card to unleash the power of CSS perspective</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&crop=center" alt="Forest Path" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+            <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Design System Platform</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Comprehensive design system for enterprise applications</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=300&fit=crop&crop=center" alt="Design System" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+                <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Performance Optimization</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Advanced web performance solutions and monitoring</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop&crop=center" alt="Performance" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+            <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Startup Brand Identity</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Complete brand identity and digital presence</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop&crop=center" alt="Branding" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+                <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>VeriScanX</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>AI-powered fake news detection platform using ML</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop&crop=center" alt="AI Platform" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+            <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>E-Commerce Platform</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Full-stack e-commerce solution with payment integration</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop&crop=center" alt="E-Commerce" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+                <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Analytics Dashboard</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Real-time data visualization and business intelligence</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center" alt="Analytics" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+            <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Mobile Banking App</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Secure mobile banking application with biometric auth</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop&crop=center" alt="Mobile App" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Duplicate cards for seamless loop -->
+            <div class="project-card">
+              <div class="card-container">
+                <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Make things float in air</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Hover over this card to unleash the power of CSS perspective</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&crop=center" alt="Forest Path" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+                <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Design System Platform</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Comprehensive design system for enterprise applications</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=300&fit=crop&crop=center" alt="Design System" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+                <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Performance Optimization</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Advanced web performance solutions and monitoring</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop&crop=center" alt="Performance" />
+                    </div>
+                  </div>
+                </div>
+        </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+            <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Startup Brand Identity</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Complete brand identity and digital presence</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop&crop=center" alt="Branding" />
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+            <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>VeriScanX</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>AI-powered fake news detection platform using ML</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop&crop=center" alt="AI Platform" />
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+            <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>E-Commerce Platform</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Full-stack e-commerce solution with payment integration</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop&crop=center" alt="E-Commerce" />
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+            <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Analytics Dashboard</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Real-time data visualization and business intelligence</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center" alt="Analytics" />
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+            
+            <div class="project-card">
+              <div class="card-container">
+                <div class="card-body">
+                  <div class="card-item" translateZ="50">
+                    <h3>Mobile Banking App</h3>
+                  </div>
+                  <div class="card-item" translateZ="100">
+                    <p>Secure mobile banking application with biometric auth</p>
+                  </div>
+                  <div class="card-item" translateZ="150">
+                    <div class="project-image">
+                      <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop&crop=center" alt="Mobile App" />
+                    </div>
+                  </div>
+                  <div class="card-item" translateZ="200">
+                    <div class="card-actions">
+                      <a href="#" class="card-link">Try now →</a>
+                      <button class="card-button">Sign up</button>
+                    </div>
+        </div>
+          </div>
+          </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      
+
+      <!-- About -->
+      <section class="section about reveal" id="about">
+        <div class="container two-col">
+          <div>
+            <h2>About</h2>
+            <p>I'm Varchasva Khare, an independent designer and developer helping teams ship better software. I blend strategy, design, and code to move faster with less friction.</p>
+            <p>Previously at Example Co. Available for select collaborations.</p>
+          </div>
+          <div class="about-stats">
+            <div class="stat"><span class="num" data-count="10" data-suffix="+">0</span><span class="label">Years</span></div>
+            <div class="stat"><span class="num" data-count="40" data-suffix="+">0</span><span class="label">Projects</span></div>
+            <div class="stat"><span class="num" data-count="8">0</span><span class="label">Industries</span></div>
+          </div>
+        </div>
+      </section>
+
+      
+
+      <!-- Contact -->
+      <section class="section contact reveal" id="contact">
+        <div class="container contact-inner">
+          <h2>Let’s build something great</h2>
+          <p>Currently booking for Q4. Tell me about your project.</p>
+          <button class="btn btn--lg magnet" data-open-contact>Open contact form</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="left">
+          <span>© <span id="year"></span> Varchasva Khare</span>
+        </div>
+        <div class="right">
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://x.com" target="_blank" rel="noreferrer">X</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor" aria-hidden="true">
+      <div class="cursor-ring"></div>
+      <div class="cursor-dot"></div>
+    </div>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="false">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-dialog" role="document">
+        <button class="modal-close" data-close aria-label="Close">×</button>
+        <div class="modal-media" id="modalMedia"></div>
+        <div class="modal-body">
+          <h3 id="modalTitle">Project</h3>
+          <p id="modalSubtitle" class="muted">Subtitle</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-modal="false">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-dialog" role="document">
+        <button class="modal-close" data-close aria-label="Close">×</button>
+        <div class="modal-body">
+          <h3>Contact</h3>
+          <p class="muted">Fill the form and I’ll get back to you shortly.</p>
+          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+            <div class="form-row">
+              <label for="cf_name">Name</label>
+              <input id="cf_name" name="name" type="text" placeholder="Varchasva Khare" required />
+            </div>
+            <div class="form-row">
+              <label for="cf_email">Email</label>
+              <input id="cf_email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-row">
+              <label for="cf_message">Message</label>
+              <textarea id="cf_message" name="message" rows="5" placeholder="Tell me about your project" required></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn">Send</button>
+              <button type="button" class="btn btn--ghost" data-close>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toasts -->
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader-inner">
+        <div class="orbs">
+          <span class="orb"></span>
+          <span class="orb"></span>
+          <span class="orb"></span>
+        </div>
+        <div class="loader-word" aria-label="Loading">
+          <span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span>
+        </div>
+        <div class="bar"><span class="fill" id="loaderFill"></span></div>
+      </div>
+    </div>
+
+    <!-- Command Palette -->
+    <div class="cmdk" id="cmdk" aria-hidden="true">
+      <div class="cmdk-dialog" role="dialog" aria-modal="true">
+        <input class="cmdk-input" id="cmdkInput" placeholder="Type to jump… (try: work, about, contact)" aria-label="Command" />
+        <div class="cmdk-list" id="cmdkList"></div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+  </body>
+  </html>
+
+

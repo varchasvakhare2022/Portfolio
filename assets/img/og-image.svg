@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#0a0a0a"/>
+      <stop offset="1" stop-color="#121212"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <g fill="#6cf0c2">
+    <circle cx="1100" cy="530" r="260" fill-opacity="0.08"/>
+    <circle cx="100" cy="100" r="180" fill-opacity="0.06"/>
+  </g>
+  <text x="80" y="360" font-family="Inter,Arial,sans-serif" font-size="86" fill="#eaeaea" font-weight="800">Varchasva Khare</text>
+  <text x="80" y="430" font-family="Inter,Arial,sans-serif" font-size="32" fill="#a1a1a1">Design · Development · Strategy</text>
+</svg>
+
+
