@@ -176,6 +176,85 @@ if (meteors) {
   setInterval(createMeteor, 1200);
 }
 
+// Projects Creative Background generation
+const projectsStars = document.getElementById('projectsStars');
+if (projectsStars) {
+  // Code snippets that float up
+  const codeSnippets = [
+    'function create()', 'const project = {}', 'import React', 'export default', 
+    'async function', 'useState()', 'useEffect()', 'return <div>', 
+    'npm install', 'git commit', 'docker build', 'API endpoint',
+    'database.query', 'auth.login()', 'router.push()', 'component.mount'
+  ];
+  
+  const createCodeParticle = () => {
+    const el = document.createElement('div');
+    el.className = 'code-particle';
+    el.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.animationDelay = Math.random() * -8 + 's';
+    el.style.animationDuration = (6 + Math.random() * 4) + 's';
+    projectsStars.appendChild(el);
+    setTimeout(() => el.remove(), 10000);
+  };
+  
+  // Geometric shapes that float up
+  const createGeoShape = () => {
+    const el = document.createElement('div');
+    const shapes = ['circle', 'triangle', 'square'];
+    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+    el.className = `geo-shape ${shape}`;
+    el.style.left = Math.random() * 100 + '%';
+    el.style.animationDelay = Math.random() * -12 + 's';
+    el.style.animationDuration = (10 + Math.random() * 4) + 's';
+    projectsStars.appendChild(el);
+    setTimeout(() => el.remove(), 15000);
+  };
+  
+  // Initial generation - more particles and shapes
+  for (let i = 0; i < 15; i++) createCodeParticle();
+  for (let i = 0; i < 10; i++) createGeoShape();
+  
+  // Continuous generation - more frequent
+  setInterval(createCodeParticle, 1200);
+  setInterval(createGeoShape, 1800);
+}
+
+// About section optimized effects
+const aboutBg = document.querySelector('.about-bg');
+if (aboutBg) {
+  const techElements = [
+    'CPU', 'GPU', 'RAM', 'API', 'DB', 'JS', 'TS', 'React', 'Node', 'Git'
+  ];
+  
+  const createTechElement = () => {
+    const el = document.createElement('div');
+    el.className = 'tech-element';
+    el.textContent = techElements[Math.floor(Math.random() * techElements.length)];
+    el.style.position = 'absolute';
+    el.style.left = Math.random() * 100 + '%';
+    el.style.top = Math.random() * 100 + '%';
+    el.style.fontSize = '12px';
+    el.style.color = 'rgba(108, 240, 194, 0.4)';
+    el.style.opacity = '0.3';
+    el.style.fontWeight = '600';
+    el.style.fontFamily = 'Monaco, Menlo, monospace';
+    el.style.pointerEvents = 'none';
+    el.style.animation = 'tech-float 8s ease-in-out infinite';
+    el.style.animationDelay = Math.random() * -8 + 's';
+    el.style.textShadow = '0 0 8px currentColor';
+    
+    aboutBg.appendChild(el);
+    setTimeout(() => el.remove(), 8000);
+  };
+  
+  // Create fewer initial tech elements
+  for (let i = 0; i < 6; i++) createTechElement();
+  
+  // Less frequent generation
+  setInterval(createTechElement, 4000);
+}
+
 // Flip words effect
 const flipWordsEl = document.getElementById('flipWords');
 if (flipWordsEl) {
@@ -374,27 +453,47 @@ document.addEventListener('click', (e) => {
 
 // Stats count-up on reveal
 (() => {
-  const nums = document.querySelectorAll('.about .num[data-count]');
+  const nums = document.querySelectorAll('.stat-number[data-count]');
   if (!nums.length) return;
+  
   const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+  
   const run = (el) => {
     const target = Number(el.getAttribute('data-count') || '0');
     const suffix = el.getAttribute('data-suffix') || '';
-    const dur = 1200; let start = 0;
+    const dur = 1500; // Slightly longer duration for smoother effect
+    let start = 0;
+    
     const step = (ts) => {
       if (!start) start = ts;
       const p = Math.min(1, (ts - start) / dur);
-      const val = Math.round(target * easeOut(p));
+      const eased = easeOut(p);
+      const val = Math.round(target * eased);
       el.textContent = `${val}${suffix}`;
-      if (p < 1) requestAnimationFrame(step);
+      
+      if (p < 1) {
+        requestAnimationFrame(step);
+      }
     };
+    
     requestAnimationFrame(step);
   };
+  
   const obs = new IntersectionObserver((entries, o) => {
     entries.forEach((en) => {
-      if (en.isIntersecting) { run(en.target); o.unobserve(en.target); }
+      if (en.isIntersecting) {
+        // Add a small delay for better visual effect
+        setTimeout(() => {
+          run(en.target);
+        }, 200);
+        o.unobserve(en.target);
+      }
     });
-  }, { threshold: 0.5 });
+  }, { 
+    threshold: 0.3, // Trigger when 30% visible
+    rootMargin: '0px 0px -50px 0px' // Start animation slightly before fully in view
+  });
+  
   nums.forEach((n) => obs.observe(n));
 })();
 
@@ -1216,11 +1315,144 @@ document.addEventListener('click', (e) => {
       const fileName = draggedElement.dataset.file;
       const fileNameDisplay = draggedElement.querySelector('.icon-label').textContent;
       
-      // Simulate download
-      downloadFile(fileName, fileNameDisplay);
+      // Show confirmation popup
+      showDownloadConfirmation(fileName, fileNameDisplay);
     }
   });
   
+  // Download confirmation popup
+  function showDownloadConfirmation(fileName, displayName) {
+    // Create modal backdrop
+    const backdrop = document.createElement('div');
+    backdrop.style.cssText = `
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `;
+    
+    // Create modal dialog
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    `;
+    
+    // Create content
+    modal.innerHTML = `
+      <div style="margin-bottom: 20px;">
+        <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
+        <h3 style="margin: 0 0 8px 0; color: var(--text); font-size: 20px; font-weight: 600;">Download ${displayName}</h3>
+      </div>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button id="confirmDownload" style="
+          background: var(--brand);
+          color: var(--bg);
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-weight: 600;
+          transition: all 0.2s ease;
+        ">Download</button>
+        <button id="cancelDownload" style="
+          background: transparent;
+          color: var(--text);
+          border: 1px solid var(--border);
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-weight: 600;
+          transition: all 0.2s ease;
+        ">Cancel</button>
+      </div>
+    `;
+    
+    backdrop.appendChild(modal);
+    document.body.appendChild(backdrop);
+    
+    // Keep custom cursor visible on popup with higher z-index
+    const cursor = document.getElementById('cursor');
+    if (cursor) {
+      cursor.classList.remove('is-hidden');
+      cursor.style.zIndex = '3000'; // Higher than popup's 2000
+    }
+    
+    // Add buttons to custom cursor system
+    const confirmBtn = modal.querySelector('#confirmDownload');
+    const cancelBtn = modal.querySelector('#cancelDownload');
+    
+    // Add cursor link effects to buttons
+    confirmBtn.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
+    confirmBtn.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
+    cancelBtn.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
+    cancelBtn.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
+    
+    // Add click effects
+    confirmBtn.addEventListener('mousedown', () => cursor.classList.add('is-click'));
+    cancelBtn.addEventListener('mousedown', () => cursor.classList.add('is-click'));
+    window.addEventListener('mouseup', () => cursor.classList.remove('is-click'));
+    
+    // Add hover effects
+    confirmBtn.addEventListener('mouseenter', () => {
+      confirmBtn.style.transform = 'translateY(-1px)';
+      confirmBtn.style.boxShadow = '0 4px 12px rgba(108, 240, 194, 0.3)';
+    });
+    
+    confirmBtn.addEventListener('mouseleave', () => {
+      confirmBtn.style.transform = 'translateY(0)';
+      confirmBtn.style.boxShadow = 'none';
+    });
+    
+    cancelBtn.addEventListener('mouseenter', () => {
+      cancelBtn.style.background = 'rgba(255, 255, 255, 0.05)';
+    });
+    
+    cancelBtn.addEventListener('mouseleave', () => {
+      cancelBtn.style.background = 'transparent';
+    });
+    
+    // Function to close popup
+    const closePopup = () => {
+      document.body.removeChild(backdrop);
+      // Restore cursor z-index
+      if (cursor) {
+        cursor.style.zIndex = '1000'; // Restore original z-index
+      }
+    };
+    
+    // Event listeners
+    confirmBtn.addEventListener('click', () => {
+      closePopup();
+      downloadFile(fileName, displayName);
+    });
+    
+    cancelBtn.addEventListener('click', closePopup);
+    
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) {
+        closePopup();
+      }
+    });
+    
+    // ESC key to close
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        closePopup();
+        document.removeEventListener('keydown', handleEsc);
+      }
+    };
+    document.addEventListener('keydown', handleEsc);
+  }
+
   // Download function
   function downloadFile(fileName, displayName) {
     // Create a temporary link element for download

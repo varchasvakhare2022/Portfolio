@@ -69,16 +69,16 @@
         </div>
         <div class="container hero-inner">
           <div class="hero-content">
-          <div class="eyebrow">Independent Designer & Developer</div>
+          <div class="eyebrow">Designer & Developer</div>
           <h1 class="headline">
-            Crafting <span class="flip-words" id="flipWords" aria-live="polite">
-              <span class="word is-active">thoughtful</span>
-              <span class="word">bold</span>
-              <span class="word">accessible</span>
-              <span class="word">performant</span>
-            </span><br class="hide-sm" />digital<br class="hide-sm" />products that people love to use.
+            Innovation is a puzzle - every twist unlocks a new <span class="flip-words" id="flipWords" aria-live="polite">
+              <span class="word is-active">design.</span>
+              <span class="word">path.</span>
+              <span class="word">perspective.</span>
+              <span class="word">creation.</span>
+            </span>
           </h1>
-          <p class="lede">Strategy, brand, and engineering for modern web experiences.</p>
+          <p class="lede">Building digital experiences where logic meets creativity.</p>
           <div class="cta-row">
               <a href="assets/files/resume.pdf" class="btn magnet resume-icon" download draggable="true" data-file="resume.pdf">
                 <div class="icon-image">📄</div>
@@ -143,6 +143,9 @@
 
       <!-- Projects Deck -->
       <section class="section projects reveal" id="work">
+        <!-- Shooting Stars Background -->
+        <div class="projects-stars" id="projectsStars" aria-hidden="true"></div>
+        
         <div class="container projects-header">
           <h2>Featured Projects</h2>
           <p>Here are the key projects I've crafted and collaborated on, each representing a unique challenge solved through innovative design and development.</p>
@@ -452,16 +455,131 @@
 
       <!-- About -->
       <section class="section about reveal" id="about">
-        <div class="container two-col">
-          <div>
-            <h2>About</h2>
-            <p>I'm Varchasva Khare, an independent designer and developer helping teams ship better software. I blend strategy, design, and code to move faster with less friction.</p>
-            <p>Previously at Example Co. Available for select collaborations.</p>
+        <!-- Interactive Background -->
+        <div class="about-bg" aria-hidden="true">
+          <div class="about-particles"></div>
+          <div class="about-grid"></div>
+          <div class="about-shapes"></div>
+          <div class="about-connections"></div>
+          <div class="about-nodes"></div>
+        </div>
+        
+        <div class="container about-inner">
+          <div class="about-header">
+            <h2 class="about-title">
+              <span class="title-text">About</span>
+              <span class="title-accent">Me</span>
+            </h2>
+            <div class="about-subtitle">Turning complexity into clarity, one line of code at a time</div>
           </div>
-          <div class="about-stats">
-            <div class="stat"><span class="num" data-count="10" data-suffix="+">0</span><span class="label">Years</span></div>
-            <div class="stat"><span class="num" data-count="40" data-suffix="+">0</span><span class="label">Projects</span></div>
-            <div class="stat"><span class="num" data-count="8">0</span><span class="label">Industries</span></div>
+          
+          <div class="about-content">
+            <div class="about-text">
+              <div class="text-block">
+                <p class="intro-text">
+                  Hi, I'm <span class="highlight-name">Varchasva</span> — a full-stack developer and problem-solver who loves turning complexity into clarity.
+                </p>
+                <p>
+                  I specialize in building end-to-end web applications, from crafting intuitive user interfaces to designing robust backend systems and databases. My approach combines clean design with efficient engineering to deliver seamless digital experiences.
+                </p>
+              </div>
+              
+              <div class="text-block">
+                <p>
+                  Over time, I've built comprehensive skills across the entire development stack, from frontend technologies like React, Vue.js, and TypeScript, to backend development with Node.js, Express, and Python. I also work with database management using MongoDB, PostgreSQL, and MySQL, plus DevOps, cloud platforms, and API development.
+                </p>
+                <p>
+                  Whether it's a simple website or a complex enterprise application, I enjoy the challenge of building something that scales beautifully and works flawlessly.
+                </p>
+              </div>
+              
+              <div class="text-block">
+                <p>
+                  What drives me is the puzzle-like nature of development — much like solving a Rubik's cube, every turn of code and design brings me closer to the bigger picture. I believe great products are not just functional, but also intuitive and enjoyable to use.
+                </p>
+              </div>
+              
+              <div class="text-block">
+                <p>
+                  I'm always eager to collaborate, learn, and push boundaries—whether that's through open-source projects, freelancing opportunities, or building innovative products with a team. If you'd like to connect, feel free to reach out!
+                </p>
+              </div>
+            </div>
+            
+            <div class="about-visual">
+              <div class="skills-showcase">
+                <div class="skill-category">
+                  <h4>Frontend</h4>
+                  <div class="skill-items">
+                    <span class="skill-item">HTML5</span>
+                    <span class="skill-item">CSS3</span>
+                    <span class="skill-item">JavaScript</span>
+                    <span class="skill-item">React</span>
+                    <span class="skill-item">Vue.js</span>
+                    <span class="skill-item">TypeScript</span>
+                    <span class="skill-item">SASS/SCSS</span>
+                    <span class="skill-item">Tailwind CSS</span>
+                  </div>
+                </div>
+                
+                <div class="skill-category">
+                  <h4>Backend & Database</h4>
+                  <div class="skill-items">
+                    <span class="skill-item">Node.js</span>
+                    <span class="skill-item">Express.js</span>
+                    <span class="skill-item">MongoDB</span>
+                    <span class="skill-item">MySQL</span>
+                    <span class="skill-item">PostgreSQL</span>
+                    <span class="skill-item">Firebase</span>
+                    <span class="skill-item">REST APIs</span>
+                    <span class="skill-item">GraphQL</span>
+                  </div>
+                </div>
+                
+                <div class="skill-category">
+                  <h4>Tools & Platforms</h4>
+                  <div class="skill-items">
+                    <span class="skill-item">Git</span>
+                    <span class="skill-item">VS Code</span>
+                    <span class="skill-item">Figma</span>
+                    <span class="skill-item">Chrome DevTools</span>
+                    <span class="skill-item">Webpack</span>
+                    <span class="skill-item">Vite</span>
+                    <span class="skill-item">Docker</span>
+                    <span class="skill-item">AWS</span>
+                  </div>
+                </div>
+                
+                <div class="skill-category">
+                  <h4>Focus Areas</h4>
+                  <div class="skill-items">
+                    <span class="skill-item">Performance</span>
+                    <span class="skill-item">UI/UX</span>
+                    <span class="skill-item">Creative Coding</span>
+                    <span class="skill-item">Responsive Design</span>
+                    <span class="skill-item">SEO</span>
+                    <span class="skill-item">Accessibility</span>
+                    <span class="skill-item">Testing</span>
+                    <span class="skill-item">DevOps</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="about-stats">
+                <div class="stat-item">
+                  <div class="stat-number" data-count="3" data-suffix="+">3+</div>
+                  <div class="stat-label">Years of Experience</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number" data-count="8" data-suffix="+">8+</div>
+                  <div class="stat-label">Projects Built</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number" data-count="20" data-suffix="+">20+</div>
+                  <div class="stat-label">Technologies Known</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -471,14 +589,37 @@
     </main>
 
     <footer class="site-footer">
+      <!-- Footer Background Effects -->
+      <div class="footer-bg" aria-hidden="true">
+        <div class="footer-particles"></div>
+        <div class="footer-streams"></div>
+        <div class="footer-nodes"></div>
+        <div class="footer-connections"></div>
+      </div>
+      
       <div class="container footer-inner">
-        <div class="left">
-          <span>© <span id="year"></span> Varchasva Khare</span>
-        </div>
-        <div class="right">
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="https://x.com" target="_blank" rel="noreferrer">X</a>
+        <div class="footer-content">
+          <div class="footer-brand">
+            <span class="footer-copyright">© <span id="year"></span> Varchasva Khare</span>
+          </div>
+          
+          <div class="footer-links">
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="footer-link" aria-label="LinkedIn">
+              <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noreferrer" class="footer-link" aria-label="GitHub">
+              <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" class="footer-link" aria-label="Instagram">
+              <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
