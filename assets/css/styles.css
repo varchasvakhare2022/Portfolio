@@ -1927,6 +1927,8 @@ select:focus {
 /* Toasts */
 .toasts{position:fixed;right:14px;bottom:14px;display:grid;gap:8px;z-index:90}
 .toast{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-elev);color:var(--text);box-shadow:var(--shadow);animation:toast-in .2s ease}
+.toast--error{border-color:#ef4444;background:color-mix(in oklab, #ef4444 10%, var(--bg-elev));color:#fca5a5}
+.toast--success{border-color:var(--brand);background:color-mix(in oklab, var(--brand) 10%, var(--bg-elev));color:var(--brand)}
 @keyframes toast-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* Loader */

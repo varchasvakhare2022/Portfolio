@@ -411,22 +411,77 @@ document.addEventListener('click', (e) => {
   });
 })();
 
-// Contact modal open/close + simple submit handling
+// Contact modal open/close + Web3Forms submit handling
 (() => {
   const modal = document.getElementById('contactModal');
   if (!modal) return;
   const openEls = document.querySelectorAll('[data-open-contact]');
   const form = document.getElementById('contactForm');
-  const open = () => { modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); modal.setAttribute('aria-modal','true'); };
-  const close = () => { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); modal.setAttribute('aria-modal','false'); };
+  const toasts = document.getElementById('toasts');
+  
+  const open = () => { 
+    modal.classList.add('is-open'); 
+    modal.setAttribute('aria-hidden','false'); 
+    modal.setAttribute('aria-modal','true'); 
+  };
+  const close = () => { 
+    modal.classList.remove('is-open'); 
+    modal.setAttribute('aria-hidden','true'); 
+    modal.setAttribute('aria-modal','false'); 
+    // Reset form when closing
+    if (form) form.reset();
+  };
+  
   openEls.forEach(el => el.addEventListener('click', open));
   modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', close));
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
-  form?.addEventListener('submit', (e) => {
-    // Optional: show loader and let browser submit normally to Web3Forms
-    const loader = document.getElementById('loader');
-    loader?.classList.remove('is-hidden');
-    setTimeout(() => loader?.classList.add('is-hidden'), 1600);
+  
+  // Show toast notification
+  const showToast = (message, type = 'success') => {
+    if (!toasts) return;
+    const toast = document.createElement('div');
+    toast.className = `toast toast--${type}`;
+    toast.textContent = message;
+    toasts.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000);
+  };
+  
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    // Show loading state
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
+    try {
+      const formData = new FormData(form);
+      
+      // Submit to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        showToast('Message sent successfully! I\'ll get back to you soon.', 'success');
+        form.reset();
+        setTimeout(() => close(), 1500);
+      } else {
+        throw new Error(result.message || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      showToast('Failed to send message. Please try again or contact me directly.', 'error');
+    } finally {
+      // Reset button state
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
   });
 })();
 

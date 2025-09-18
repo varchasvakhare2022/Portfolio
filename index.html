@@ -643,6 +643,8 @@
       </div>
     </div>
 
+    <script src="config.js"></script>
+
     <!-- Contact Modal -->
     <div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-modal="false">
       <div class="modal-backdrop" data-close></div>
@@ -652,10 +654,13 @@
           <h3>Contact</h3>
           <p class="muted">Fill the form and I’ll get back to you shortly.</p>
           <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+            <input type="hidden" name="access_key" value="{{ CONFIG.WEB3FORM_KEY }}" />
+            <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio" />
+            <input type="hidden" name="from_name" value="Portfolio Contact Form" />
+            <input type="hidden" name="redirect" value="false" />
             <div class="form-row">
               <label for="cf_name">Name</label>
-              <input id="cf_name" name="name" type="text" placeholder="Varchasva Khare" required />
+              <input id="cf_name" name="name" type="text" placeholder="Your Name" required />
             </div>
             <div class="form-row">
               <label for="cf_email">Email</label>
@@ -663,7 +668,7 @@
             </div>
             <div class="form-row">
               <label for="cf_message">Message</label>
-              <textarea id="cf_message" name="message" rows="5" placeholder="Tell me about your project" required></textarea>
+              <textarea id="cf_message" name="message" rows="5" placeholder="Leave a message" required></textarea>
             </div>
             <div class="form-actions">
               <button type="submit" class="btn">Send</button>
