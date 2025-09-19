@@ -1754,38 +1754,37 @@ document.addEventListener('click', (e) => {
 
 // Project Card Click Handlers - Redirect to GitHub
 (function() {
-      // Project GitHub URLs
-      const projectUrls = {
-        'design-system': 'https://github.com/yourusername/design-system-platform',
-        'performance': 'https://github.com/yourusername/performance-optimization',
-        'branding': 'https://github.com/yourusername/startup-branding',
-        'veriscanx': 'https://github.com/varchasvakhare2022/VeriScanX',
-        'ecommerce': 'https://github.com/yourusername/ecommerce-platform',
-        'dashboard': 'https://github.com/yourusername/analytics-dashboard',
-        'mobile-app': 'https://github.com/yourusername/mobile-banking-app',
-        'blockchain': 'https://github.com/yourusername/blockchain-explorer'
-      };
-  
+  // Project GitHub URLs mapped by project title
+  const projectUrls = {
+    'Make things float in air': 'https://github.com/varchasvakhare2022/css-3d-effects',
+    'Startup Brand Identity': 'https://github.com/varchasvakhare2022/brand-identity-design',
+    'VeriScanX': 'https://github.com/varchasvakhare2022/VeriScanX',
+    'E-Commerce Platform': 'https://github.com/varchasvakhare2022/ecommerce-platform',
+    'Analytics Dashboard': 'https://github.com/varchasvakhare2022/analytics-dashboard',
+    'Mobile Banking App': 'https://github.com/varchasvakhare2022/mobile-banking-app',
+    'Blockchain Explorer': 'https://github.com/varchasvakhare2022/blockchain-explorer',
+    'Design System Platform': 'https://github.com/varchasvakhare2022/design-system',
+    'Performance Optimization': 'https://github.com/varchasvakhare2022/performance-optimization'
+  };
+
   // Add click listeners to project cards
   document.addEventListener('click', (e) => {
     const projectCard = e.target.closest('.project-card');
     if (projectCard) {
       e.preventDefault();
       
-          // Get project type from class name
-          let projectType = null;
-          if (projectCard.classList.contains('design-system')) projectType = 'design-system';
-          else if (projectCard.classList.contains('performance')) projectType = 'performance';
-          else if (projectCard.classList.contains('branding')) projectType = 'branding';
-          else if (projectCard.classList.contains('veriscanx')) projectType = 'veriscanx';
-          else if (projectCard.classList.contains('ecommerce')) projectType = 'ecommerce';
-          else if (projectCard.classList.contains('dashboard')) projectType = 'dashboard';
-          else if (projectCard.classList.contains('mobile-app')) projectType = 'mobile-app';
-          else if (projectCard.classList.contains('blockchain')) projectType = 'blockchain';
-      
-      // Redirect to GitHub if URL exists
-      if (projectType && projectUrls[projectType]) {
-        window.open(projectUrls[projectType], '_blank', 'noopener,noreferrer');
+      // Get project title from the h3 element
+      const titleElement = projectCard.querySelector('h3');
+      if (titleElement) {
+        const projectTitle = titleElement.textContent.trim();
+        
+        // Redirect to GitHub if URL exists
+        if (projectUrls[projectTitle]) {
+          window.open(projectUrls[projectTitle], '_blank', 'noopener,noreferrer');
+        } else {
+          // Fallback to your main GitHub profile
+          window.open('https://github.com/varchasvakhare2022', '_blank', 'noopener,noreferrer');
+        }
       }
     }
   });

@@ -731,11 +731,11 @@ body.is-landed .hero .cta-row{opacity:1;transform:none;clip-path:inset(0)}
   display: flex;
   flex-direction: column;
   text-align: left;
+  cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
-  cursor: pointer;
   perspective: 1000px;
   will-change: transform;
   transform: translateZ(0);
