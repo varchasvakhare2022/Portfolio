@@ -538,8 +538,24 @@ document.addEventListener('click', (e) => {
 (() => {
   const cursor = document.getElementById('cursor');
   if (!cursor) return;
+  
+  // Check if device supports hover (desktop) vs touch (mobile)
+  const isMobile = window.matchMedia('(max-width: 768px)').matches || 
+                   'ontouchstart' in window || 
+                   navigator.maxTouchPoints > 0;
+  
+  if (isMobile) {
+    // Hide cursor completely on mobile devices
+    cursor.style.display = 'none';
+    return;
+  }
+  
   const ring = cursor.querySelector('.cursor-ring');
   const dot = cursor.querySelector('.cursor-dot');
+  
+  // Hide cursor initially until site is loaded
+  cursor.classList.add('is-hidden');
+  
   // Hide native cursor globally (desktop pointers)
   document.documentElement.classList.add('cursor-none');
   let x = window.innerWidth / 2, y = window.innerHeight / 2;
@@ -553,6 +569,15 @@ document.addEventListener('click', (e) => {
     requestAnimationFrame(raf);
   };
   raf();
+  
+  // Show cursor only after loading is complete
+  const showCursor = () => {
+    cursor.classList.remove('is-hidden');
+  };
+  
+  // Wait for the loader to hide (1400ms + 1400ms = 2800ms total)
+  setTimeout(showCursor, 2800);
+  
   const onMove = (e) => { x = e.clientX; y = e.clientY; cursor.classList.remove('is-hidden'); };
   const onLeave = () => cursor.classList.add('is-hidden');
   window.addEventListener('mousemove', onMove);
@@ -748,6 +773,12 @@ document.addEventListener('click', (e) => {
   const canvas = document.getElementById('bg3d');
   const hero = document.getElementById('hero');
   if (!(canvas instanceof HTMLCanvasElement) || !hero) return;
+  
+  // Check if device is mobile
+  const isMobile = window.matchMedia('(max-width: 768px)').matches || 
+                   'ontouchstart' in window || 
+                   navigator.maxTouchPoints > 0;
+  
   const brand = getComputedStyle(document.documentElement).getPropertyValue('--brand').trim() || '#6cf0c2';
   const hasWebGL = (() => {
     try { const c = document.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); } catch { return false; }
@@ -757,7 +788,7 @@ document.addEventListener('click', (e) => {
   resize();
   window.addEventListener('resize', resize);
 
-  if (hasWebGL && window.THREE) {
+  if (hasWebGL && window.THREE && !isMobile) {
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.physicallyCorrectLights = true;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -1125,17 +1156,24 @@ document.addEventListener('click', (e) => {
     };
     animate();
   } else {
-    // 2D fallback: floating particles
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    const parts = Array.from({ length: 60 }, () => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2+1, dx:(Math.random()-.5)*0.6, dy:(Math.random()-.5)*0.6 }));
-    const draw = () => {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle = brand;
-      parts.forEach(p => { p.x+=p.dx; p.y+=p.dy; if(p.x<0||p.x>canvas.width) p.dx*=-1; if(p.y<0||p.y>canvas.height) p.dy*=-1; ctx.globalAlpha=.6; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); });
-      requestAnimationFrame(draw);
-    };
-    draw();
+    // 2D fallback: floating particles (for desktop without WebGL) or mobile devices
+    if (isMobile) {
+      // For mobile, hide the canvas and use CSS background instead
+      canvas.style.display = 'none';
+      hero.style.background = `linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)`;
+    } else {
+      // Desktop fallback: floating particles
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      const parts = Array.from({ length: 60 }, () => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2+1, dx:(Math.random()-.5)*0.6, dy:(Math.random()-.5)*0.6 }));
+      const draw = () => {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = brand;
+        parts.forEach(p => { p.x+=p.dx; p.y+=p.dy; if(p.x<0||p.x>canvas.width) p.dx*=-1; if(p.y<0||p.y>canvas.height) p.dy*=-1; ctx.globalAlpha=.6; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); });
+        requestAnimationFrame(draw);
+      };
+      draw();
+    }
   }
 })();
 

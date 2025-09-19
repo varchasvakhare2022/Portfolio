@@ -2330,6 +2330,85 @@ select:focus {
 .bar .fill{display:block;height:100%;width:0;background:linear-gradient(90deg, var(--brand), color-mix(in oklab, var(--brand) 50%, #62c2ff));box-shadow:0 0 16px color-mix(in oklab, var(--brand) 50%, transparent)}
 
 /* Respect reduced motion */
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  /* Hide cursor on mobile */
+  .cursor {
+    display: none !important;
+  }
+  
+  /* Hide cursor trail on mobile */
+  .cursor-trail {
+    display: none !important;
+  }
+  
+  /* Ensure no cursor-none class affects mobile */
+  .cursor-none {
+    cursor: auto !important;
+  }
+  
+  /* Adjust hero section for mobile */
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    min-height: 100vh;
+  }
+  
+  /* Adjust hero content for mobile */
+  .hero-content {
+    text-align: center;
+  }
+  
+  /* Adjust project cards for mobile */
+  .project-card {
+    margin: 0 8px;
+  }
+  
+  /* Adjust modal for mobile */
+  .project-modal-content {
+    margin: 20px;
+    max-height: 90vh;
+  }
+  
+  /* Adjust desktop icons for mobile */
+  .desktop-icons {
+    display: none;
+  }
+  
+  /* Adjust marquee speed for mobile */
+  .projects-track {
+    animation-duration: 20s;
+  }
+  
+  /* Adjust button sizes for mobile */
+  .btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  
+  /* Adjust form inputs for mobile */
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Adjust project modal buttons for mobile */
+  .project-modal-btn {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  
+  /* Adjust header for mobile */
+  .site-header {
+    padding: 16px 20px;
+  }
+  
+  /* Adjust section padding for mobile */
+  .section {
+    padding: 60px 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce){
   .aurora,.bg-lines path,.spotlight,.meteors,.meteor,.marquee-track,.services::before,.about::before,.testimonials::before{animation:none!important}
 }
