@@ -1882,13 +1882,13 @@ select:focus {
 .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
 
 /* Custom Cursor inspired by Aceternity Following Pointer */
-.cursor{position:fixed;inset:0;pointer-events:none;z-index:1000}
+.cursor{position:fixed;inset:0;pointer-events:none;z-index:1100}
 .cursor-ring{position:absolute;width:44px;height:44px;border:1px solid rgba(236,236,236,.35);border-radius:999px;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s,border-color .2s}
 .cursor-dot{position:absolute;width:6px;height:6px;background:#eaeaea;border-radius:999px;transform:translate(-50%,-50%);transition:opacity .2s}
 .cursor.is-hidden .cursor-ring,.cursor.is-hidden .cursor-dot{opacity:0}
 .cursor.is-click .cursor-ring{width:28px;height:28px;border-color:#6cf0c2}
 .cursor.is-link .cursor-ring{width:64px;height:64px;border-color:#6cf0c2}
-.cursor-trail{position:fixed;inset:0;pointer-events:none;z-index:900}
+.cursor-trail{position:fixed;inset:0;pointer-events:none;z-index:1050}
 .trail-dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--brand);opacity:.8;transform:translate(-50%,-50%);animation:trail-fade .8s ease forwards}
 @keyframes trail-fade{to{opacity:0;transform:translate(-50%,-50%) scale(.3)}}
 
@@ -1929,6 +1929,380 @@ select:focus {
 .toast{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-elev);color:var(--text);box-shadow:var(--shadow);animation:toast-in .2s ease}
 .toast--error{border-color:#ef4444;background:color-mix(in oklab, #ef4444 10%, var(--bg-elev));color:#fca5a5}
 .toast--success{border-color:var(--brand);background:color-mix(in oklab, var(--brand) 10%, var(--bg-elev));color:var(--brand)}
+
+/* Project Modal Styles - Creative Animations */
+.project-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.4s ease;
+}
+
+.project-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.project-modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-modal.is-open .project-modal-backdrop {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.project-modal-content {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  transform: scale(0.3) rotateX(15deg) rotateY(-10deg) translateY(100px);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(108, 240, 194, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.project-modal.is-open .project-modal-content {
+  transform: scale(1) rotateX(0deg) rotateY(0deg) translateY(0);
+}
+
+/* Subtle professional border */
+.project-modal-content::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(135deg, 
+    rgba(108, 240, 194, 0.1) 0%, 
+    rgba(108, 240, 194, 0.05) 50%, 
+    rgba(108, 240, 194, 0.1) 100%
+  );
+  border-radius: 21px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.project-modal.is-open .project-modal-content::before {
+  opacity: 1;
+}
+
+/* Subtle ambient lighting */
+.project-modal-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(108, 240, 194, 0.02) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(108, 240, 194, 0.01) 0%, transparent 60%);
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.project-modal.is-open .project-modal-content::after {
+  opacity: 1;
+}
+
+.project-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 28px 20px 28px;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+}
+
+.project-modal.is-open .project-modal-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-modal-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.project-modal-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-modal-close::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(108, 240, 194, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.project-modal-close:hover::before {
+  left: 100%;
+}
+
+.project-modal-close:hover {
+  background: var(--bg-elev);
+  color: var(--text);
+  transform: scale(1.05);
+}
+
+.project-modal-body {
+  padding: 24px 28px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+}
+
+.project-modal.is-open .project-modal-body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-modal-description {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 0 24px 0;
+  position: relative;
+}
+
+.project-modal-description::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand), transparent);
+  transition: width 0.8s ease 0.5s;
+}
+
+.project-modal.is-open .project-modal-description::after {
+  width: 100%;
+}
+
+.project-modal-image {
+  width: 100%;
+  height: 220px;
+  background: var(--bg-elev);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(0.8) rotateY(10deg);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-modal.is-open .project-modal-image {
+  opacity: 1;
+  transform: scale(1) rotateY(0deg);
+}
+
+.project-modal-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(108, 240, 194, 0.1), transparent);
+  transition: left 1s ease 0.6s;
+}
+
+.project-modal.is-open .project-modal-image::before {
+  left: 100%;
+}
+
+.project-modal-footer {
+  display: flex;
+  gap: 16px;
+  padding: 20px 28px 28px 28px;
+  border-top: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
+}
+
+.project-modal.is-open .project-modal-footer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-modal-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.project-modal-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.project-modal-btn:hover::before {
+  left: 100%;
+}
+
+.project-modal-btn--github {
+  background: #24292e;
+  color: #ffffff;
+  border-color: #24292e;
+  box-shadow: 0 2px 8px rgba(36, 41, 46, 0.2);
+}
+
+.project-modal-btn--github:hover {
+  background: #1a1e22;
+  border-color: #1a1e22;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(36, 41, 46, 0.3);
+}
+
+.project-modal-btn--github svg {
+  transition: transform 0.3s ease;
+}
+
+.project-modal-btn--github:hover svg {
+  transform: scale(1.05);
+}
+
+.project-modal-btn--website {
+  background: var(--brand);
+  color: #000000;
+  border-color: var(--brand);
+  box-shadow: 0 2px 8px rgba(108, 240, 194, 0.2);
+}
+
+.project-modal-btn--website:hover {
+  background: color-mix(in oklab, var(--brand) 80%, #000000);
+  border-color: color-mix(in oklab, var(--brand) 80%, #000000);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 240, 194, 0.3);
+}
+
+.project-modal-btn--website svg {
+  transition: transform 0.3s ease;
+}
+
+.project-modal-btn--website:hover svg {
+  transform: scale(1.05);
+}
+
+.project-modal-btn svg {
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+/* Staggered animation for buttons */
+.project-modal-btn:nth-child(1) {
+  animation-delay: 0.6s;
+}
+
+.project-modal-btn:nth-child(2) {
+  animation-delay: 0.7s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .project-modal-content {
+    width: 95%;
+    max-width: none;
+  }
+  
+  .project-modal-header {
+    padding: 20px 20px 12px 20px;
+  }
+  
+  .project-modal-title {
+    font-size: 20px;
+  }
+  
+  .project-modal-body {
+    padding: 16px 20px;
+  }
+  
+  .project-modal-footer {
+    padding: 12px 20px 20px 20px;
+    flex-direction: column;
+  }
+  
+  .project-modal-btn {
+    padding: 14px 20px;
+  }
+}
 @keyframes toast-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* Loader */

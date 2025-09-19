@@ -374,42 +374,7 @@ document.addEventListener('click', (e) => {
   update();
 })();
 
-// Project modal
-(() => {
-  const modal = document.getElementById('projectModal');
-  if (!modal) return;
-  const media = document.getElementById('modalMedia');
-  const title = document.getElementById('modalTitle');
-  const subtitle = document.getElementById('modalSubtitle');
-  const open = (data) => {
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    modal.setAttribute('aria-modal', 'true');
-    if (media instanceof HTMLElement) media.style.backgroundImage = `url('${data.image}')`;
-    if (title) title.textContent = data.title;
-    if (subtitle) subtitle.textContent = data.subtitle;
-  };
-  const close = () => {
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    modal.setAttribute('aria-modal', 'false');
-  };
-  modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', close));
-  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
-  document.querySelectorAll('.work-grid .card').forEach((card) => {
-    card.addEventListener('click', (e) => {
-      e.preventDefault();
-      const el = e.currentTarget;
-      if (!(el instanceof HTMLElement)) return;
-      const data = {
-        title: el.dataset.title || 'Project',
-        subtitle: el.dataset.subtitle || '',
-        image: el.dataset.image || ''
-      };
-      open(data);
-    });
-  });
-})();
+// Old project modal code removed - replaced with new modal system
 
 // Contact modal open/close + Web3Forms submit handling
 (() => {
@@ -739,33 +704,7 @@ document.addEventListener('click', (e) => {
   Array.from(grid.querySelectorAll('.card')).forEach(c => c.setAttribute('tabindex', '0'));
 })();
 
-// Modal: arrow key navigation between projects
-(() => {
-  const modal = document.getElementById('projectModal');
-  const grid = document.getElementById('workGrid');
-  if (!modal || !grid) return;
-  const getVisible = () => Array.from(grid.querySelectorAll('.card:not(.is-hidden)'));
-  let currentIndex = -1;
-  const updateIndexFromTitle = () => {
-    const openTitle = document.getElementById('modalTitle')?.textContent || '';
-    currentIndex = getVisible().findIndex(c => (c.getAttribute('data-title') || '') === openTitle);
-  };
-  document.querySelectorAll('.work-grid .card').forEach((card) => {
-    card.addEventListener('click', () => { updateIndexFromTitle(); });
-  });
-  window.addEventListener('keydown', (e) => {
-    if (!modal.classList.contains('is-open')) return;
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-    e.preventDefault();
-    const visible = getVisible();
-    if (!visible.length) return;
-    if (currentIndex < 0) updateIndexFromTitle();
-    currentIndex = (currentIndex + (e.key === 'ArrowRight' ? 1 : -1) + visible.length) % visible.length;
-    // simulate click on the next card to reuse open logic
-    const next = visible[currentIndex];
-    next?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-  });
-})();
+// Old arrow key navigation code removed - replaced with new modal system
 
 // Magnetic hover
 (() => {
@@ -1752,42 +1691,193 @@ document.addEventListener('click', (e) => {
   }
 })();
 
-// Project Card Click Handlers - Redirect to GitHub
+// Project Modal System
 (function() {
-  // Project GitHub URLs mapped by project title
-  const projectUrls = {
-    'Make things float in air': 'https://github.com/varchasvakhare2022/css-3d-effects',
-    'Startup Brand Identity': 'https://github.com/varchasvakhare2022/brand-identity-design',
-    'VeriScanX': 'https://github.com/varchasvakhare2022/VeriScanX',
-    'E-Commerce Platform': 'https://github.com/varchasvakhare2022/ecommerce-platform',
-    'Analytics Dashboard': 'https://github.com/varchasvakhare2022/analytics-dashboard',
-    'Mobile Banking App': 'https://github.com/varchasvakhare2022/mobile-banking-app',
-    'Blockchain Explorer': 'https://github.com/varchasvakhare2022/blockchain-explorer',
-    'Design System Platform': 'https://github.com/varchasvakhare2022/design-system',
-    'Performance Optimization': 'https://github.com/varchasvakhare2022/performance-optimization'
+  // Wait for DOM to be ready
+  function initProjectModal() {
+    const modal = document.getElementById('projectModal');
+    const modalTitle = document.getElementById('projectModalTitle');
+    const modalDescription = document.getElementById('projectModalDescription');
+    const modalImage = document.getElementById('projectModalImage');
+    const modalGithub = document.getElementById('projectModalGithub');
+    const modalWebsite = document.getElementById('projectModalWebsite');
+
+    // Check if all elements exist
+    if (!modal || !modalTitle || !modalDescription || !modalImage || !modalGithub || !modalWebsite) {
+      console.warn('Project modal elements not found, retrying...');
+      setTimeout(initProjectModal, 100);
+      return;
+    }
+
+  // Project data with GitHub and website URLs
+  const projectData = {
+    'Make things float in air': {
+      description: 'Interactive CSS 3D effects showcasing advanced web animations and transforms.',
+      github: 'https://github.com/varchasvakhare2022/css-3d-effects',
+      website: 'https://css-3d-effects-demo.netlify.app',
+      image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&h=300&fit=crop&crop=center'
+    },
+    'Startup Brand Identity': {
+      description: 'Complete brand identity design including logo, color palette, and digital assets.',
+      github: 'https://github.com/varchasvakhare2022/brand-identity-design',
+      website: 'https://brand-identity-showcase.netlify.app',
+      image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=500&h=300&fit=crop&crop=center'
+    },
+    'VeriScanX': {
+      description: 'AI-powered fake news detection platform using machine learning and natural language processing.',
+      github: 'https://github.com/varchasvakhare2022/VeriScanX',
+      website: 'https://veriscanx-0gzgh.sevalla.app/',
+      image: 'assets/img/veriscanx_popup.png'
+    },
+    'Detective': {
+      description: 'Discord gaming bot that lets users play different games directly on Discord. Features multiple game modes, interactive commands, and real-time gameplay.',
+      github: 'https://github.com/varchasvakhare2022/Detective',
+      website: 'https://detective-bot-demo.netlify.app',
+      image: 'assets/img/detective_popup.png'
+    },
+    'E-Commerce Platform': {
+      description: 'Full-stack e-commerce solution with payment integration, inventory management, and user authentication.',
+      github: 'https://github.com/varchasvakhare2022/ecommerce-platform',
+      website: 'https://ecommerce-demo.netlify.app',
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop&crop=center'
+    },
+    'Analytics Dashboard': {
+      description: 'Real-time data visualization dashboard with business intelligence and reporting features.',
+      github: 'https://github.com/varchasvakhare2022/analytics-dashboard',
+      website: 'https://analytics-dashboard-demo.netlify.app',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop&crop=center'
+    },
+    'Mobile Banking App': {
+      description: 'Secure mobile banking application with biometric authentication and real-time transactions.',
+      github: 'https://github.com/varchasvakhare2022/mobile-banking-app',
+      website: 'https://banking-app-demo.netlify.app',
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=300&fit=crop&crop=center'
+    },
+    'Blockchain Explorer': {
+      description: 'Blockchain transaction explorer with real-time data visualization and smart contract analysis.',
+      github: 'https://github.com/varchasvakhare2022/blockchain-explorer',
+      website: 'https://blockchain-explorer-demo.netlify.app',
+      image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500&h=300&fit=crop&crop=center'
+    },
+    'Design System Platform': {
+      description: 'Comprehensive design system for enterprise applications with reusable components.',
+      github: 'https://github.com/varchasvakhare2022/design-system',
+      website: 'https://design-system-showcase.netlify.app',
+      image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&h=300&fit=crop&crop=center'
+    },
+    'Performance Optimization': {
+      description: 'Advanced web performance optimization solutions and monitoring tools.',
+      github: 'https://github.com/varchasvakhare2022/performance-optimization',
+      website: 'https://performance-tools-demo.netlify.app',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop&crop=center'
+    }
   };
 
-  // Add click listeners to project cards
-  document.addEventListener('click', (e) => {
-    const projectCard = e.target.closest('.project-card');
-    if (projectCard) {
-      e.preventDefault();
+  // Open modal function
+  function openModal(projectTitle) {
+    console.log('Opening modal for project:', projectTitle);
+    const data = projectData[projectTitle];
+    console.log('Project data found:', data);
+    
+    if (!data) {
+      console.warn('No data found for project:', projectTitle);
+      return;
+    }
+
+    // Update modal content
+    console.log('Updating modal content...');
+    modalTitle.textContent = projectTitle;
+    modalDescription.textContent = data.description;
+    modalImage.style.backgroundImage = `url('${data.image}')`;
+    modalGithub.href = data.github;
+    modalWebsite.href = data.website;
+    
+    console.log('Modal title updated to:', modalTitle.textContent);
+    console.log('Modal description updated to:', modalDescription.textContent);
+    console.log('Modal GitHub href updated to:', modalGithub.href);
+    console.log('Modal Website href updated to:', modalWebsite.href);
+
+    // Show modal
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    modal.setAttribute('aria-modal', 'true');
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Add cursor effects to modal buttons
+    const cursor = document.getElementById('cursor');
+    if (cursor) {
+      // Add cursor link effects to modal buttons
+      modalGithub.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
+      modalGithub.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
+      modalWebsite.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
+      modalWebsite.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
       
-      // Get project title from the h3 element
-      const titleElement = projectCard.querySelector('h3');
-      if (titleElement) {
-        const projectTitle = titleElement.textContent.trim();
+      // Add click effects
+      modalGithub.addEventListener('mousedown', () => cursor.classList.add('is-click'));
+      modalWebsite.addEventListener('mousedown', () => cursor.classList.add('is-click'));
+      window.addEventListener('mouseup', () => cursor.classList.remove('is-click'));
+    }
+  }
+
+  // Close modal function
+  function closeModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('aria-modal', 'false');
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
+  }
+
+    // Event listeners
+    // Close button
+    const closeButtons = modal.querySelectorAll('[data-close]');
+    closeButtons.forEach(btn => {
+      btn.addEventListener('click', closeModal);
+    });
+
+    // Backdrop click
+    const backdrop = modal.querySelector('.project-modal-backdrop');
+    if (backdrop) {
+      backdrop.addEventListener('click', closeModal);
+    }
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+
+    // Project card click handlers
+    document.addEventListener('click', (e) => {
+      const projectCard = e.target.closest('.project-card');
+      if (projectCard) {
+        e.preventDefault();
+        console.log('Project card clicked');
         
-        // Redirect to GitHub if URL exists
-        if (projectUrls[projectTitle]) {
-          window.open(projectUrls[projectTitle], '_blank', 'noopener,noreferrer');
+        // Get project title from the h3 element
+        const titleElement = projectCard.querySelector('h3');
+        if (titleElement) {
+          const projectTitle = titleElement.textContent.trim();
+          console.log('Project title extracted:', projectTitle);
+          openModal(projectTitle);
         } else {
-          // Fallback to your main GitHub profile
-          window.open('https://github.com/varchasvakhare2022', '_blank', 'noopener,noreferrer');
+          console.warn('No h3 element found in project card');
         }
       }
-    }
-  });
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProjectModal);
+  } else {
+    initProjectModal();
+  }
 })();
+
 
 
