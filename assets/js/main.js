@@ -1295,52 +1295,71 @@ document.addEventListener('click', (e) => {
   
   if (!downloadZone || icons.length === 0) return;
   
+  // Check if device is mobile
+  const isMobile = window.matchMedia('(max-width: 768px)').matches || 
+                   'ontouchstart' in window || 
+                   navigator.maxTouchPoints > 0;
+  
   let draggedElement = null;
   
-  // Drag start
+  // Setup icons for both desktop and mobile
   icons.forEach(icon => {
     const tooltip = icon.querySelector('.icon-tooltip');
     
-    icon.addEventListener('dragstart', (e) => {
-      draggedElement = icon;
-      icon.classList.add('dragging');
-      downloadZone.classList.add('is-visible');
-      // Hide tooltip when dragging starts
-      if (tooltip) {
-        tooltip.classList.remove('is-visible', 'icon-tooltip-animation');
-      }
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/html', icon.outerHTML);
-    });
+    // Disable drag on mobile devices
+    if (isMobile) {
+      icon.draggable = false;
+    } else {
+      // Desktop drag functionality
+      icon.addEventListener('dragstart', (e) => {
+        draggedElement = icon;
+        icon.classList.add('dragging');
+        downloadZone.classList.add('is-visible');
+        // Hide tooltip when dragging starts
+        if (tooltip) {
+          tooltip.classList.remove('is-visible', 'icon-tooltip-animation');
+        }
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', icon.outerHTML);
+      });
+      
+      icon.addEventListener('dragend', () => {
+        icon.classList.remove('dragging');
+        downloadZone.classList.remove('is-visible');
+        downloadZone.classList.remove('drag-over');
+        draggedElement = null;
+      });
+    }
     
-    icon.addEventListener('dragend', () => {
-      icon.classList.remove('dragging');
-      downloadZone.classList.remove('is-visible');
-      downloadZone.classList.remove('drag-over');
-      draggedElement = null;
-    });
-    
-    // Show tooltip on click
+    // Click functionality for both desktop and mobile
     icon.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       
-      if (tooltip) {
-        // Remove any existing tooltip animations
-        tooltip.classList.remove('is-visible', 'icon-tooltip-animation');
-        
-        // Force reflow
-        tooltip.offsetHeight;
-        
-        // Show tooltip with bounce animation
-        setTimeout(() => {
-          tooltip.classList.add('is-visible', 'icon-tooltip-animation');
-        }, 50);
-        
-        // Hide tooltip after 3 seconds
-        setTimeout(() => {
+      if (isMobile) {
+        // On mobile, show download popup directly
+        const fileName = icon.dataset.file;
+        const fileNameDisplay = icon.querySelector('.icon-label').textContent;
+        showDownloadConfirmation(fileName, fileNameDisplay);
+      } else {
+        // On desktop, show tooltip
+        if (tooltip) {
+          // Remove any existing tooltip animations
           tooltip.classList.remove('is-visible', 'icon-tooltip-animation');
-        }, 3000);
+          
+          // Force reflow
+          tooltip.offsetHeight;
+          
+          // Show tooltip with bounce animation
+          setTimeout(() => {
+            tooltip.classList.add('is-visible', 'icon-tooltip-animation');
+          }, 50);
+          
+          // Hide tooltip after 3 seconds
+          setTimeout(() => {
+            tooltip.classList.remove('is-visible', 'icon-tooltip-animation');
+          }, 3000);
+        }
       }
     });
   });
