@@ -1295,10 +1295,13 @@ document.addEventListener('click', (e) => {
   
   if (!downloadZone || icons.length === 0) return;
   
-  // Check if device is mobile
+  // Check if device is mobile - more comprehensive detection
   const isMobile = window.matchMedia('(max-width: 768px)').matches || 
                    'ontouchstart' in window || 
-                   navigator.maxTouchPoints > 0;
+                   navigator.maxTouchPoints > 0 ||
+                   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  console.log('Mobile detection:', isMobile, 'Screen width:', window.innerWidth, 'Touch support:', 'ontouchstart' in window);
   
   let draggedElement = null;
   
@@ -1309,6 +1312,10 @@ document.addEventListener('click', (e) => {
     // Disable drag on mobile devices
     if (isMobile) {
       icon.draggable = false;
+      icon.removeAttribute('draggable');
+      icon.style.webkitUserDrag = 'none';
+      icon.style.userDrag = 'none';
+      console.log('Disabled drag for icon:', icon.className);
     } else {
       // Desktop drag functionality
       icon.addEventListener('dragstart', (e) => {
@@ -1335,11 +1342,13 @@ document.addEventListener('click', (e) => {
     icon.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation();
       
       if (isMobile) {
         // On mobile, show download popup directly
         const fileName = icon.dataset.file;
         const fileNameDisplay = icon.querySelector('.icon-label').textContent;
+        console.log('Mobile click detected, showing popup for:', fileNameDisplay);
         showDownloadConfirmation(fileName, fileNameDisplay);
       } else {
         // On desktop, show tooltip
@@ -1362,6 +1371,25 @@ document.addEventListener('click', (e) => {
         }
       }
     });
+    
+    // Add touch event handler for mobile devices
+    if (isMobile) {
+      icon.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      
+      icon.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Show download popup on touch end
+        const fileName = icon.dataset.file;
+        const fileNameDisplay = icon.querySelector('.icon-label').textContent;
+        console.log('Mobile touch detected, showing popup for:', fileNameDisplay);
+        showDownloadConfirmation(fileName, fileNameDisplay);
+      });
+    }
   });
   
   // Download zone events
