@@ -1826,11 +1826,11 @@ document.addEventListener('click', (e) => {
       website: 'https://ecommerce-demo.netlify.app',
       image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop&crop=center'
     },
-    'Analytics Dashboard': {
-      description: 'Real-time data visualization dashboard with business intelligence and reporting features.',
-      github: 'https://github.com/varchasvakhare2022/analytics-dashboard',
-      website: 'https://analytics-dashboard-demo.netlify.app',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop&crop=center'
+    'Police Agent': {
+      description: 'Discord moderation bot for public server management and community safety. Features automated moderation, user management, and safety tools.',
+      github: 'https://github.com/varchasvakhare2022/police-agent',
+      website: 'https://police-agent-bot.netlify.app',
+      image: 'assets/img/police_popup.png'
     },
     'Mobile Banking App': {
       description: 'Secure mobile banking application with biometric authentication and real-time transactions.',
