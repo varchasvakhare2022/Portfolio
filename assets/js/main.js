@@ -1434,41 +1434,158 @@ document.addEventListener('click', (e) => {
     // Create modal dialog
     const modal = document.createElement('div');
     modal.style.cssText = `
-      background: var(--bg-elev);
+      background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      max-width: 400px;
+      border-radius: 24px;
+      padding: 0;
+      max-width: 480px;
       width: 90%;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-      text-align: center;
+      box-shadow: 
+        0 32px 64px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(108, 240, 194, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      overflow: hidden;
+      position: relative;
     `;
     
     // Create content
     modal.innerHTML = `
-      <div style="margin-bottom: 20px;">
-        <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
-        <h3 style="margin: 0 0 8px 0; color: var(--text); font-size: 20px; font-weight: 600;">Download ${displayName}</h3>
+      <!-- Header with gradient background -->
+      <div style="
+        background: linear-gradient(135deg, rgba(108, 240, 194, 0.1) 0%, rgba(108, 240, 194, 0.05) 100%);
+        padding: 32px 32px 24px 32px;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+      ">
+        <!-- Subtle background pattern -->
+        <div style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: 
+            radial-gradient(circle at 20% 20%, rgba(108, 240, 194, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(108, 240, 194, 0.02) 0%, transparent 50%);
+          opacity: 0.6;
+        "></div>
+        
+        <!-- Header content -->
+        <div style="display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="
+              width: 48px;
+              height: 48px;
+              background: linear-gradient(135deg, rgba(108, 240, 194, 0.2) 0%, rgba(108, 240, 194, 0.1) 100%);
+              border-radius: 16px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 24px;
+              border: 1px solid rgba(108, 240, 194, 0.3);
+              box-shadow: 0 8px 32px rgba(108, 240, 194, 0.1);
+            ">📄</div>
+            <div>
+              <h3 style="
+                margin: 0 0 4px 0; 
+                color: var(--text); 
+                font-size: 22px; 
+                font-weight: 700;
+                letter-spacing: -0.02em;
+                line-height: 1.2;
+              ">Download Resume</h3>
+              <p style="
+                margin: 0; 
+                color: var(--muted); 
+                font-size: 14px;
+                font-weight: 500;
+              ">Choose your preferred option</p>
+            </div>
+          </div>
+          <button id="closeModal" style="
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--muted);
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            width: 40px;
+            height: 40px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+          ">&times;</button>
+        </div>
       </div>
-      <div style="display: flex; gap: 12px; justify-content: center;">
-        <button id="confirmDownload" style="
-          background: var(--brand);
-          color: var(--bg);
-          border: none;
-          padding: 12px 24px;
-          border-radius: 8px;
-          font-weight: 600;
-          transition: all 0.2s ease;
-        ">Download</button>
-        <button id="cancelDownload" style="
-          background: transparent;
-          color: var(--text);
-          border: 1px solid var(--border);
-          padding: 12px 24px;
-          border-radius: 8px;
-          font-weight: 600;
-          transition: all 0.2s ease;
-        ">Cancel</button>
+      
+      <!-- Content area -->
+      <div style="padding: 32px;">
+        <div style="display: flex; gap: 16px; justify-content: center;">
+          <button id="confirmDownload" style="
+            background: linear-gradient(135deg, var(--brand) 0%, rgba(108, 240, 194, 0.8) 100%);
+            color: var(--bg);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 
+              0 8px 32px rgba(108, 240, 194, 0.3),
+              0 0 0 1px rgba(108, 240, 194, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+            letter-spacing: 0.01em;
+          ">
+            <span style="position: relative; z-index: 2;">Download</span>
+            <div style="
+              position: absolute;
+              top: 0;
+              left: -100%;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+              transition: left 0.6s ease;
+            "></div>
+          </button>
+          <button id="openInBrowser" style="
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+            letter-spacing: 0.01em;
+          ">
+            <span style="position: relative; z-index: 2;">Open in Browser</span>
+            <div style="
+              position: absolute;
+              top: 0;
+              left: -100%;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(90deg, transparent, rgba(108, 240, 194, 0.1), transparent);
+              transition: left 0.6s ease;
+            "></div>
+          </button>
+        </div>
       </div>
     `;
     
@@ -1484,36 +1601,66 @@ document.addEventListener('click', (e) => {
     
     // Add buttons to custom cursor system
     const confirmBtn = modal.querySelector('#confirmDownload');
-    const cancelBtn = modal.querySelector('#cancelDownload');
+    const openInBrowserBtn = modal.querySelector('#openInBrowser');
+    const closeBtn = modal.querySelector('#closeModal');
     
     // Add cursor link effects to buttons
     confirmBtn.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
     confirmBtn.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
-    cancelBtn.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
-    cancelBtn.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
+    openInBrowserBtn.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
+    openInBrowserBtn.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
+    closeBtn.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
+    closeBtn.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
     
     // Add click effects
     confirmBtn.addEventListener('mousedown', () => cursor.classList.add('is-click'));
-    cancelBtn.addEventListener('mousedown', () => cursor.classList.add('is-click'));
+    openInBrowserBtn.addEventListener('mousedown', () => cursor.classList.add('is-click'));
+    closeBtn.addEventListener('mousedown', () => cursor.classList.add('is-click'));
     window.addEventListener('mouseup', () => cursor.classList.remove('is-click'));
     
     // Add hover effects
     confirmBtn.addEventListener('mouseenter', () => {
-      confirmBtn.style.transform = 'translateY(-1px)';
-      confirmBtn.style.boxShadow = '0 4px 12px rgba(108, 240, 194, 0.3)';
+      confirmBtn.style.transform = 'translateY(-3px) scale(1.02)';
+      confirmBtn.style.boxShadow = '0 16px 48px rgba(108, 240, 194, 0.4), 0 0 0 1px rgba(108, 240, 194, 0.3)';
+      const shimmer = confirmBtn.querySelector('div');
+      if (shimmer) shimmer.style.left = '100%';
     });
     
     confirmBtn.addEventListener('mouseleave', () => {
-      confirmBtn.style.transform = 'translateY(0)';
-      confirmBtn.style.boxShadow = 'none';
+      confirmBtn.style.transform = 'translateY(0) scale(1)';
+      confirmBtn.style.boxShadow = '0 8px 32px rgba(108, 240, 194, 0.3), 0 0 0 1px rgba(108, 240, 194, 0.2)';
+      const shimmer = confirmBtn.querySelector('div');
+      if (shimmer) shimmer.style.left = '-100%';
     });
     
-    cancelBtn.addEventListener('mouseenter', () => {
-      cancelBtn.style.background = 'rgba(255, 255, 255, 0.05)';
+    openInBrowserBtn.addEventListener('mouseenter', () => {
+      openInBrowserBtn.style.background = 'rgba(255, 255, 255, 0.08)';
+      openInBrowserBtn.style.borderColor = 'rgba(108, 240, 194, 0.3)';
+      openInBrowserBtn.style.transform = 'translateY(-3px) scale(1.02)';
+      const shimmer = openInBrowserBtn.querySelector('div');
+      if (shimmer) shimmer.style.left = '100%';
     });
     
-    cancelBtn.addEventListener('mouseleave', () => {
-      cancelBtn.style.background = 'transparent';
+    openInBrowserBtn.addEventListener('mouseleave', () => {
+      openInBrowserBtn.style.background = 'rgba(255, 255, 255, 0.05)';
+      openInBrowserBtn.style.borderColor = 'var(--border)';
+      openInBrowserBtn.style.transform = 'translateY(0) scale(1)';
+      const shimmer = openInBrowserBtn.querySelector('div');
+      if (shimmer) shimmer.style.left = '-100%';
+    });
+    
+    closeBtn.addEventListener('mouseenter', () => {
+      closeBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+      closeBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+      closeBtn.style.color = 'var(--text)';
+      closeBtn.style.transform = 'scale(1.1) rotate(90deg)';
+    });
+    
+    closeBtn.addEventListener('mouseleave', () => {
+      closeBtn.style.background = 'rgba(255, 255, 255, 0.05)';
+      closeBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+      closeBtn.style.color = 'var(--muted)';
+      closeBtn.style.transform = 'scale(1) rotate(0deg)';
     });
     
     // Function to close popup
@@ -1531,7 +1678,27 @@ document.addEventListener('click', (e) => {
       downloadFile(fileName, displayName);
     });
     
-    cancelBtn.addEventListener('click', closePopup);
+    openInBrowserBtn.addEventListener('click', () => {
+      closePopup();
+      // Open PDF in new tab with proper headers
+      const pdfUrl = `assets/files/${fileName}`;
+      console.log('Opening PDF:', pdfUrl);
+      
+      // Try multiple approaches
+      const newWindow = window.open(pdfUrl, '_blank');
+      if (!newWindow) {
+        // Fallback: Create a temporary link
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    });
+    
+    closeBtn.addEventListener('click', closePopup);
     
     backdrop.addEventListener('click', (e) => {
       if (e.target === backdrop) {
@@ -1551,48 +1718,71 @@ document.addEventListener('click', (e) => {
 
   // Download function
   function downloadFile(fileName, displayName) {
-    // Use fetch to download the file with proper headers
-    fetch(`assets/files/${fileName}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.blob();
-      })
-      .then(blob => {
-        // Create a blob URL for the PDF
-        const url = window.URL.createObjectURL(blob);
-        
-        // Create a temporary link element for download
+    // Try multiple approaches to ensure proper PDF download
+    
+    // Method 1: Direct window.open for PDF viewing
+    const pdfUrl = `assets/files/${fileName}`;
+    const newWindow = window.open(pdfUrl, '_blank');
+    
+    if (newWindow) {
+      // If window opened successfully, show feedback
+      showDownloadFeedback(displayName);
+      
+      // Also trigger download after a short delay
+      setTimeout(() => {
         const link = document.createElement('a');
-        link.href = url;
+        link.href = pdfUrl;
         link.download = fileName;
         link.style.display = 'none';
         
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        
-        // Clean up the blob URL
-        window.URL.revokeObjectURL(url);
-        
-        // Show success feedback
-        showDownloadFeedback(displayName);
-      })
-      .catch(error => {
-        console.error('Download error:', error);
-        // Fallback to direct link method
-        const link = document.createElement('a');
-        link.href = `assets/files/${fileName}`;
-        link.download = fileName;
-        link.style.display = 'none';
-        
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        showDownloadFeedback(displayName);
-      });
+      }, 1000);
+    } else {
+      // Fallback: Use fetch method
+      fetch(pdfUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.blob();
+        })
+        .then(blob => {
+          // Create a blob URL for the PDF
+          const url = window.URL.createObjectURL(blob);
+          
+          // Create a temporary link element for download
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = fileName;
+          link.style.display = 'none';
+          
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          
+          // Clean up the blob URL
+          window.URL.revokeObjectURL(url);
+          
+          // Show success feedback
+          showDownloadFeedback(displayName);
+        })
+        .catch(error => {
+          console.error('Download error:', error);
+          // Final fallback to direct link method
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = fileName;
+          link.style.display = 'none';
+          
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          
+          showDownloadFeedback(displayName);
+        });
+    }
   }
   
   // Success feedback
