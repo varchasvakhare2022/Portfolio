@@ -1653,14 +1653,31 @@ document.addEventListener('click', (e) => {
 
   // Download function - simplified to preserve PDF integrity
   function downloadFile(fileName, displayName) {
-    const pdfUrl = `assets/files/${fileName}`;
+    // Add cache-busting parameter to ensure fresh file loading
+    const timestamp = new Date().getTime();
+    const pdfUrl = `assets/files/${fileName}?t=${timestamp}`;
     
-    // Simple direct approach - just open the PDF in a new tab
-    // This preserves all PDF functionality including links
-    window.open(pdfUrl, '_blank');
+    // Try multiple approaches to ensure PDF opens with interactive links
+    const newWindow = window.open(pdfUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
     
-    // Show feedback
-    showDownloadFeedback(displayName);
+    if (newWindow) {
+      // Focus the new window to ensure proper loading
+      newWindow.focus();
+      showDownloadFeedback(displayName);
+    } else {
+      // Fallback: Create a temporary link element
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.style.display = 'none';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      showDownloadFeedback(displayName);
+    }
   }
   
   // Success feedback
