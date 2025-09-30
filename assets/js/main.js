@@ -1554,22 +1554,14 @@ document.addEventListener('click', (e) => {
     // Create a temporary link element for download
     const link = document.createElement('a');
     
-    // For demo purposes, we'll create a simple text file
-    // In production, you would link to actual PDF files
-    const content = `This is a demo ${displayName} file.\n\nIn production, this would be your actual ${displayName.toLowerCase()} PDF.`;
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    
-    link.href = url;
+    // Link to the actual PDF files
+    link.href = `assets/files/${fileName}`;
     link.download = fileName;
     link.style.display = 'none';
     
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
-    // Clean up the URL object
-    URL.revokeObjectURL(url);
     
     // Show success feedback
     showDownloadFeedback(displayName);
