@@ -555,6 +555,7 @@ document.addEventListener('click', (e) => {
   
   // Hide cursor initially until site is loaded
   cursor.classList.add('is-hidden');
+  cursor.style.display = 'none'; // Ensure it's completely hidden during loading
   
   // Hide native cursor globally (desktop pointers)
   document.documentElement.classList.add('cursor-none');
@@ -572,13 +573,28 @@ document.addEventListener('click', (e) => {
   
   // Show cursor only after loading is complete
   const showCursor = () => {
+    isLoading = false; // Mark loading as complete
+    cursor.style.display = 'block'; // Restore display
     cursor.classList.remove('is-hidden');
   };
   
-  // Wait for the loader to hide (1400ms + 1400ms = 2800ms total)
-  setTimeout(showCursor, 2800);
+  // Show cursor exactly when loader finishes (same timing as loader hide)
+  if (document.readyState === 'complete') {
+    setTimeout(showCursor, 1400);
+  } else {
+    window.addEventListener('load', () => setTimeout(showCursor, 1400));
+  }
   
-  const onMove = (e) => { x = e.clientX; y = e.clientY; cursor.classList.remove('is-hidden'); };
+  let isLoading = true;
+  
+  const onMove = (e) => { 
+    x = e.clientX; 
+    y = e.clientY; 
+    // Only show cursor on mouse move if loading is complete
+    if (!isLoading) {
+      cursor.classList.remove('is-hidden');
+    }
+  };
   const onLeave = () => cursor.classList.add('is-hidden');
   window.addEventListener('mousemove', onMove);
   document.addEventListener('mouseleave', onLeave);
@@ -1472,7 +1488,7 @@ document.addEventListener('click', (e) => {
           color: var(--text);
           margin: 0;
           line-height: 1.3;
-        ">Download Resume</h3>
+        ">Download ${displayName}</h3>
         <button id="closeModal" style="
           background: none;
           border: none;
@@ -1501,23 +1517,17 @@ document.addEventListener('click', (e) => {
         transform: translateY(20px);
         transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
       ">
-        <p style="
-          margin: 0 0 24px 0;
-          color: var(--muted);
-          font-size: 16px;
-          line-height: 1.6;
-        ">Choose how you'd like to access your resume:</p>
-        
         <!-- Document Preview -->
-        <div style="
+        <div id="documentPreview" style="
           background: var(--bg-elev);
           border: 1px solid var(--border);
           border-radius: 12px;
-          padding: 24px;
-          margin-bottom: 24px;
+          padding: 32px 24px;
           text-align: center;
           position: relative;
           overflow: hidden;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         ">
           <div style="
             width: 64px;
@@ -1528,74 +1538,16 @@ document.addEventListener('click', (e) => {
             align-items: center;
             justify-content: center;
             font-size: 32px;
-            margin: 0 auto 16px auto;
+            margin: 0 auto 20px auto;
             border: 1px solid rgba(108, 240, 194, 0.2);
-          ">📄</div>
+          ">${displayName === 'CV' ? '📋' : '📄'}</div>
           <h4 style="
-            margin: 0 0 8px 0;
-            color: var(--text);
-            font-size: 18px;
-            font-weight: 600;
-          ">Resume.pdf</h4>
-          <p style="
             margin: 0;
-            color: var(--muted);
-            font-size: 14px;
-          ">Professional resume document</p>
-        </div>
-      </div>
-      
-      <!-- Modal Footer -->
-      <div style="
-        padding: 20px 28px 28px 28px;
-        border-top: 1px solid var(--border);
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;
-      ">
-        <div style="display: flex; gap: 12px; justify-content: flex-end;">
-          <button id="openInBrowser" style="
-            background: transparent;
             color: var(--text);
-            border: 1px solid var(--border);
-            padding: 12px 20px;
-            border-radius: 12px;
+            font-size: 20px;
             font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-          ">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15,3 21,3 21,9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-            Open in Browser
-          </button>
-          <button id="confirmDownload" style="
-            background: var(--brand);
-            color: var(--bg);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-          ">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7,10 12,15 17,10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Download
-          </button>
+            line-height: 1.3;
+          ">Varchasva Khare's ${displayName}</h4>
         </div>
       </div>
     `;
@@ -1608,7 +1560,6 @@ document.addEventListener('click', (e) => {
       modal.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg) translateY(0)';
       const header = modal.querySelector('div:first-child');
       const body = modal.querySelector('div:nth-child(2)');
-      const footer = modal.querySelector('div:last-child');
       
       if (header) {
         header.style.opacity = '1';
@@ -1617,10 +1568,6 @@ document.addEventListener('click', (e) => {
       if (body) {
         body.style.opacity = '1';
         body.style.transform = 'translateY(0)';
-      }
-      if (footer) {
-        footer.style.opacity = '1';
-        footer.style.transform = 'translateY(0)';
       }
     }, 50);
     
@@ -1632,47 +1579,21 @@ document.addEventListener('click', (e) => {
     }
     
     // Add buttons to custom cursor system
-    const confirmBtn = modal.querySelector('#confirmDownload');
-    const openInBrowserBtn = modal.querySelector('#openInBrowser');
     const closeBtn = modal.querySelector('#closeModal');
+    const documentPreview = modal.querySelector('#documentPreview');
     
     // Add cursor link effects to buttons
-    confirmBtn.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
-    confirmBtn.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
-    openInBrowserBtn.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
-    openInBrowserBtn.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
     closeBtn.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
     closeBtn.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
+    documentPreview.addEventListener('mouseenter', () => cursor.classList.add('is-link'));
+    documentPreview.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
     
     // Add click effects
-    confirmBtn.addEventListener('mousedown', () => cursor.classList.add('is-click'));
-    openInBrowserBtn.addEventListener('mousedown', () => cursor.classList.add('is-click'));
     closeBtn.addEventListener('mousedown', () => cursor.classList.add('is-click'));
+    documentPreview.addEventListener('mousedown', () => cursor.classList.add('is-click'));
     window.addEventListener('mouseup', () => cursor.classList.remove('is-click'));
     
     // Add hover effects
-    confirmBtn.addEventListener('mouseenter', () => {
-      confirmBtn.style.background = 'rgba(108, 240, 194, 0.9)';
-      confirmBtn.style.transform = 'scale(1.05)';
-    });
-    
-    confirmBtn.addEventListener('mouseleave', () => {
-      confirmBtn.style.background = 'var(--brand)';
-      confirmBtn.style.transform = 'scale(1)';
-    });
-    
-    openInBrowserBtn.addEventListener('mouseenter', () => {
-      openInBrowserBtn.style.background = 'var(--bg-elev)';
-      openInBrowserBtn.style.borderColor = 'rgba(108, 240, 194, 0.3)';
-      openInBrowserBtn.style.transform = 'scale(1.05)';
-    });
-    
-    openInBrowserBtn.addEventListener('mouseleave', () => {
-      openInBrowserBtn.style.background = 'transparent';
-      openInBrowserBtn.style.borderColor = 'var(--border)';
-      openInBrowserBtn.style.transform = 'scale(1)';
-    });
-    
     closeBtn.addEventListener('mouseenter', () => {
       closeBtn.style.background = 'var(--bg-elev)';
       closeBtn.style.color = 'var(--text)';
@@ -1685,6 +1606,18 @@ document.addEventListener('click', (e) => {
       closeBtn.style.transform = 'scale(1)';
     });
     
+    documentPreview.addEventListener('mouseenter', () => {
+      documentPreview.style.background = 'rgba(108, 240, 194, 0.05)';
+      documentPreview.style.borderColor = 'rgba(108, 240, 194, 0.3)';
+      documentPreview.style.transform = 'scale(1.02)';
+    });
+    
+    documentPreview.addEventListener('mouseleave', () => {
+      documentPreview.style.background = 'var(--bg-elev)';
+      documentPreview.style.borderColor = 'var(--border)';
+      documentPreview.style.transform = 'scale(1)';
+    });
+    
     // Function to close popup
     const closePopup = () => {
       document.body.removeChild(backdrop);
@@ -1695,32 +1628,12 @@ document.addEventListener('click', (e) => {
     };
     
     // Event listeners
-    confirmBtn.addEventListener('click', () => {
+    closeBtn.addEventListener('click', closePopup);
+    
+    documentPreview.addEventListener('click', () => {
       closePopup();
       downloadFile(fileName, displayName);
     });
-    
-    openInBrowserBtn.addEventListener('click', () => {
-      closePopup();
-      // Open PDF in new tab with proper headers
-      const pdfUrl = `assets/files/${fileName}`;
-      console.log('Opening PDF:', pdfUrl);
-      
-      // Try multiple approaches
-      const newWindow = window.open(pdfUrl, '_blank');
-      if (!newWindow) {
-        // Fallback: Create a temporary link
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-    });
-    
-    closeBtn.addEventListener('click', closePopup);
     
     backdrop.addEventListener('click', (e) => {
       if (e.target === backdrop) {
@@ -1738,73 +1651,16 @@ document.addEventListener('click', (e) => {
     document.addEventListener('keydown', handleEsc);
   }
 
-  // Download function
+  // Download function - simplified to preserve PDF integrity
   function downloadFile(fileName, displayName) {
-    // Try multiple approaches to ensure proper PDF download
-    
-    // Method 1: Direct window.open for PDF viewing
     const pdfUrl = `assets/files/${fileName}`;
-    const newWindow = window.open(pdfUrl, '_blank');
     
-    if (newWindow) {
-      // If window opened successfully, show feedback
-      showDownloadFeedback(displayName);
-      
-      // Also trigger download after a short delay
-      setTimeout(() => {
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = fileName;
-        link.style.display = 'none';
-        
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }, 1000);
-    } else {
-      // Fallback: Use fetch method
-      fetch(pdfUrl)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.blob();
-        })
-        .then(blob => {
-          // Create a blob URL for the PDF
-          const url = window.URL.createObjectURL(blob);
-          
-          // Create a temporary link element for download
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = fileName;
-          link.style.display = 'none';
-          
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          
-          // Clean up the blob URL
-          window.URL.revokeObjectURL(url);
-          
-          // Show success feedback
-          showDownloadFeedback(displayName);
-        })
-        .catch(error => {
-          console.error('Download error:', error);
-          // Final fallback to direct link method
-          const link = document.createElement('a');
-          link.href = pdfUrl;
-          link.download = fileName;
-          link.style.display = 'none';
-          
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          
-          showDownloadFeedback(displayName);
-        });
-    }
+    // Simple direct approach - just open the PDF in a new tab
+    // This preserves all PDF functionality including links
+    window.open(pdfUrl, '_blank');
+    
+    // Show feedback
+    showDownloadFeedback(displayName);
   }
   
   // Success feedback
