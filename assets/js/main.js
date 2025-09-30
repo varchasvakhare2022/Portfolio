@@ -1436,154 +1436,165 @@ document.addEventListener('click', (e) => {
     modal.style.cssText = `
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 20px;
       padding: 0;
-      max-width: 480px;
+      max-width: 500px;
       width: 90%;
-      box-shadow: 
-        0 32px 64px rgba(0, 0, 0, 0.6),
-        0 0 0 1px rgba(108, 240, 194, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      max-height: 80vh;
       overflow: hidden;
+      transform: scale(0.3) rotateX(15deg) rotateY(-10deg) translateY(100px);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(108, 240, 194, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       position: relative;
     `;
     
     // Create content
     modal.innerHTML = `
-      <!-- Header with gradient background -->
+      <!-- Modal Header -->
       <div style="
-        background: linear-gradient(135deg, rgba(108, 240, 194, 0.1) 0%, rgba(108, 240, 194, 0.05) 100%);
-        padding: 32px 32px 24px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 28px 20px 28px;
         border-bottom: 1px solid var(--border);
-        position: relative;
-        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
       ">
-        <!-- Subtle background pattern -->
-        <div style="
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: 
-            radial-gradient(circle at 20% 20%, rgba(108, 240, 194, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(108, 240, 194, 0.02) 0%, transparent 50%);
-          opacity: 0.6;
-        "></div>
+        <h3 style="
+          font-size: 24px;
+          font-weight: 600;
+          color: var(--text);
+          margin: 0;
+          line-height: 1.3;
+        ">Download Resume</h3>
+        <button id="closeModal" style="
+          background: none;
+          border: none;
+          color: var(--muted);
+          cursor: pointer;
+          padding: 10px;
+          border-radius: 12px;
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+        ">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div style="
+        padding: 24px 28px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+      ">
+        <p style="
+          margin: 0 0 24px 0;
+          color: var(--muted);
+          font-size: 16px;
+          line-height: 1.6;
+        ">Choose how you'd like to access your resume:</p>
         
-        <!-- Header content -->
-        <div style="display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;">
-          <div style="display: flex; align-items: center; gap: 16px;">
-            <div style="
-              width: 48px;
-              height: 48px;
-              background: linear-gradient(135deg, rgba(108, 240, 194, 0.2) 0%, rgba(108, 240, 194, 0.1) 100%);
-              border-radius: 16px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 24px;
-              border: 1px solid rgba(108, 240, 194, 0.3);
-              box-shadow: 0 8px 32px rgba(108, 240, 194, 0.1);
-            ">📄</div>
-            <div>
-              <h3 style="
-                margin: 0 0 4px 0; 
-                color: var(--text); 
-                font-size: 22px; 
-                font-weight: 700;
-                letter-spacing: -0.02em;
-                line-height: 1.2;
-              ">Download Resume</h3>
-              <p style="
-                margin: 0; 
-                color: var(--muted); 
-                font-size: 14px;
-                font-weight: 500;
-              ">Choose your preferred option</p>
-            </div>
-          </div>
-          <button id="closeModal" style="
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--muted);
-            cursor: pointer;
-            padding: 12px;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        <!-- Document Preview -->
+        <div style="
+          background: var(--bg-elev);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 24px;
+          margin-bottom: 24px;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        ">
+          <div style="
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(108, 240, 194, 0.1) 0%, rgba(108, 240, 194, 0.05) 100%);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 16px auto;
+            border: 1px solid rgba(108, 240, 194, 0.2);
+          ">📄</div>
+          <h4 style="
+            margin: 0 0 8px 0;
+            color: var(--text);
             font-size: 18px;
-            width: 40px;
-            height: 40px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-          ">&times;</button>
+            font-weight: 600;
+          ">Resume.pdf</h4>
+          <p style="
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+          ">Professional resume document</p>
         </div>
       </div>
       
-      <!-- Content area -->
-      <div style="padding: 32px;">
-        <div style="display: flex; gap: 16px; justify-content: center;">
-          <button id="confirmDownload" style="
-            background: linear-gradient(135deg, var(--brand) 0%, rgba(108, 240, 194, 0.8) 100%);
-            color: var(--bg);
-            border: none;
-            padding: 16px 32px;
-            border-radius: 16px;
-            font-weight: 700;
-            font-size: 16px;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 
-              0 8px 32px rgba(108, 240, 194, 0.3),
-              0 0 0 1px rgba(108, 240, 194, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            min-width: 140px;
-            letter-spacing: 0.01em;
-          ">
-            <span style="position: relative; z-index: 2;">Download</span>
-            <div style="
-              position: absolute;
-              top: 0;
-              left: -100%;
-              width: 100%;
-              height: 100%;
-              background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-              transition: left 0.6s ease;
-            "></div>
-          </button>
+      <!-- Modal Footer -->
+      <div style="
+        padding: 20px 28px 28px 28px;
+        border-top: 1px solid var(--border);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;
+      ">
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
           <button id="openInBrowser" style="
-            background: rgba(255, 255, 255, 0.05);
+            background: transparent;
             color: var(--text);
             border: 1px solid var(--border);
-            padding: 16px 32px;
-            border-radius: 16px;
+            padding: 12px 20px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 14px;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            min-width: 140px;
-            letter-spacing: 0.01em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
           ">
-            <span style="position: relative; z-index: 2;">Open in Browser</span>
-            <div style="
-              position: absolute;
-              top: 0;
-              left: -100%;
-              width: 100%;
-              height: 100%;
-              background: linear-gradient(90deg, transparent, rgba(108, 240, 194, 0.1), transparent);
-              transition: left 0.6s ease;
-            "></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15,3 21,3 21,9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            Open in Browser
+          </button>
+          <button id="confirmDownload" style="
+            background: var(--brand);
+            color: var(--bg);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+          ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7,10 12,15 17,10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download
           </button>
         </div>
       </div>
@@ -1591,6 +1602,27 @@ document.addEventListener('click', (e) => {
     
     backdrop.appendChild(modal);
     document.body.appendChild(backdrop);
+    
+    // Trigger animations
+    setTimeout(() => {
+      modal.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg) translateY(0)';
+      const header = modal.querySelector('div:first-child');
+      const body = modal.querySelector('div:nth-child(2)');
+      const footer = modal.querySelector('div:last-child');
+      
+      if (header) {
+        header.style.opacity = '1';
+        header.style.transform = 'translateY(0)';
+      }
+      if (body) {
+        body.style.opacity = '1';
+        body.style.transform = 'translateY(0)';
+      }
+      if (footer) {
+        footer.style.opacity = '1';
+        footer.style.transform = 'translateY(0)';
+      }
+    }, 50);
     
     // Keep custom cursor visible on popup with higher z-index
     const cursor = document.getElementById('cursor');
@@ -1620,47 +1652,37 @@ document.addEventListener('click', (e) => {
     
     // Add hover effects
     confirmBtn.addEventListener('mouseenter', () => {
-      confirmBtn.style.transform = 'translateY(-3px) scale(1.02)';
-      confirmBtn.style.boxShadow = '0 16px 48px rgba(108, 240, 194, 0.4), 0 0 0 1px rgba(108, 240, 194, 0.3)';
-      const shimmer = confirmBtn.querySelector('div');
-      if (shimmer) shimmer.style.left = '100%';
+      confirmBtn.style.background = 'rgba(108, 240, 194, 0.9)';
+      confirmBtn.style.transform = 'scale(1.05)';
     });
     
     confirmBtn.addEventListener('mouseleave', () => {
-      confirmBtn.style.transform = 'translateY(0) scale(1)';
-      confirmBtn.style.boxShadow = '0 8px 32px rgba(108, 240, 194, 0.3), 0 0 0 1px rgba(108, 240, 194, 0.2)';
-      const shimmer = confirmBtn.querySelector('div');
-      if (shimmer) shimmer.style.left = '-100%';
+      confirmBtn.style.background = 'var(--brand)';
+      confirmBtn.style.transform = 'scale(1)';
     });
     
     openInBrowserBtn.addEventListener('mouseenter', () => {
-      openInBrowserBtn.style.background = 'rgba(255, 255, 255, 0.08)';
+      openInBrowserBtn.style.background = 'var(--bg-elev)';
       openInBrowserBtn.style.borderColor = 'rgba(108, 240, 194, 0.3)';
-      openInBrowserBtn.style.transform = 'translateY(-3px) scale(1.02)';
-      const shimmer = openInBrowserBtn.querySelector('div');
-      if (shimmer) shimmer.style.left = '100%';
+      openInBrowserBtn.style.transform = 'scale(1.05)';
     });
     
     openInBrowserBtn.addEventListener('mouseleave', () => {
-      openInBrowserBtn.style.background = 'rgba(255, 255, 255, 0.05)';
+      openInBrowserBtn.style.background = 'transparent';
       openInBrowserBtn.style.borderColor = 'var(--border)';
-      openInBrowserBtn.style.transform = 'translateY(0) scale(1)';
-      const shimmer = openInBrowserBtn.querySelector('div');
-      if (shimmer) shimmer.style.left = '-100%';
+      openInBrowserBtn.style.transform = 'scale(1)';
     });
     
     closeBtn.addEventListener('mouseenter', () => {
-      closeBtn.style.background = 'rgba(255, 255, 255, 0.1)';
-      closeBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+      closeBtn.style.background = 'var(--bg-elev)';
       closeBtn.style.color = 'var(--text)';
-      closeBtn.style.transform = 'scale(1.1) rotate(90deg)';
+      closeBtn.style.transform = 'scale(1.05)';
     });
     
     closeBtn.addEventListener('mouseleave', () => {
-      closeBtn.style.background = 'rgba(255, 255, 255, 0.05)';
-      closeBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+      closeBtn.style.background = 'none';
       closeBtn.style.color = 'var(--muted)';
-      closeBtn.style.transform = 'scale(1) rotate(0deg)';
+      closeBtn.style.transform = 'scale(1)';
     });
     
     // Function to close popup
