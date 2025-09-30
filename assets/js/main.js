@@ -1551,20 +1551,48 @@ document.addEventListener('click', (e) => {
 
   // Download function
   function downloadFile(fileName, displayName) {
-    // Create a temporary link element for download
-    const link = document.createElement('a');
-    
-    // Link to the actual PDF files
-    link.href = `assets/files/${fileName}`;
-    link.download = fileName;
-    link.style.display = 'none';
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Show success feedback
-    showDownloadFeedback(displayName);
+    // Use fetch to download the file with proper headers
+    fetch(`assets/files/${fileName}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob();
+      })
+      .then(blob => {
+        // Create a blob URL for the PDF
+        const url = window.URL.createObjectURL(blob);
+        
+        // Create a temporary link element for download
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.style.display = 'none';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Clean up the blob URL
+        window.URL.revokeObjectURL(url);
+        
+        // Show success feedback
+        showDownloadFeedback(displayName);
+      })
+      .catch(error => {
+        console.error('Download error:', error);
+        // Fallback to direct link method
+        const link = document.createElement('a');
+        link.href = `assets/files/${fileName}`;
+        link.download = fileName;
+        link.style.display = 'none';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showDownloadFeedback(displayName);
+      });
   }
   
   // Success feedback

@@ -1,0 +1,15 @@
+# MIME types for proper file serving
+AddType application/pdf .pdf
+
+# Enable CORS for PDF files
+<FilesMatch "\.(pdf)$">
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</FilesMatch>
+
+# Cache control for PDF files
+<FilesMatch "\.(pdf)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+</FilesMatch>
