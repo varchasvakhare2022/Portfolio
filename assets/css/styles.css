@@ -1154,57 +1154,57 @@ select:focus {
   }
 }
 
-/* Crazy Data Clusters */
+/* Personal Photo Background */
 .about-shapes {
   position: absolute;
   inset: 0;
 }
 
-.about-shapes::before,
-.about-shapes::after {
+.about-shapes::before {
   content: '';
   position: absolute;
-  border-radius: 50%;
-  background: var(--brand);
-  opacity: 0.12;
-  animation: crazy-cluster-float 7s ease-in-out infinite;
-  box-shadow: 0 0 12px rgba(108, 240, 194, 0.15);
-}
-
-.about-shapes::before {
-  width: 80px;
-  height: 80px;
-  top: 20%;
+  width: 150px;
+  height: 150px;
+  top: 10%;
   right: 20%;
-  animation-delay: 0s;
+  background-image: url('../img/me.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: photo-float 8s ease-in-out infinite;
+  box-shadow: 
+    0 0 30px rgba(108, 240, 194, 0.2),
+    0 0 60px rgba(108, 240, 194, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(108, 240, 194, 0.3);
 }
 
 .about-shapes::after {
-  width: 60px;
-  height: 60px;
-  bottom: 30%;
-  left: 15%;
-  animation-delay: 2s;
-  background: #62c2ff;
-  box-shadow: 0 0 12px rgba(98, 194, 255, 0.15);
+  display: none;
 }
 
-@keyframes crazy-cluster-float {
+@keyframes photo-float {
   0%, 100% { 
-    transform: translateY(0px) scale(1) rotate(0deg); 
-    opacity: 0.3;
+    transform: translateY(0px) scale(1) rotate(0deg);
+    opacity: 0.8;
+    filter: hue-rotate(0deg) brightness(1);
   }
   25% { 
-    transform: translateY(-10px) scale(1.1) rotate(90deg); 
-    opacity: 0.5;
+    transform: translateY(-8px) scale(1.02) rotate(1deg);
+    opacity: 0.9;
+    filter: hue-rotate(5deg) brightness(1.05);
   }
   50% { 
-    transform: translateY(-20px) scale(1.2) rotate(180deg); 
-    opacity: 0.7;
+    transform: translateY(-15px) scale(1.05) rotate(0deg);
+    opacity: 1;
+    filter: hue-rotate(10deg) brightness(1.1);
   }
   75% { 
-    transform: translateY(-10px) scale(1.1) rotate(270deg); 
-    opacity: 0.5;
+    transform: translateY(-8px) scale(1.02) rotate(-1deg);
+    opacity: 0.9;
+    filter: hue-rotate(5deg) brightness(1.05);
   }
 }
 
