@@ -2441,6 +2441,204 @@ select:focus {
   transform: translate3d(3px, 0, 0) scale3d(1.1, 1.1, 1);
 }
 
+/* Space-Themed Custom Scrollbar - Functional Version */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, 
+    rgba(15, 15, 15, 0.95) 0%,
+    rgba(25, 25, 35, 0.95) 50%,
+    rgba(15, 15, 15, 0.95) 100%);
+  border-radius: 7px;
+  border: 1px solid rgba(108, 240, 194, 0.15);
+  box-shadow: 
+    inset 0 0 15px rgba(0, 0, 0, 0.3),
+    0 0 8px rgba(108, 240, 194, 0.08);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg,
+    #6cf0c2 0%,
+    #4ad2a5 25%,
+    #2b8a6b 75%,
+    #1a6b52 100%);
+  border-radius: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 
+    0 0 12px rgba(108, 240, 194, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg,
+    #7af5d2 0%,
+    #5ae2b5 25%,
+    #3baa7b 75%,
+    #2a7c62 100%);
+  box-shadow: 
+    0 0 18px rgba(108, 240, 194, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  transform: scaleX(1.05);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg,
+    #8af8e2 0%,
+    #6af2c5 25%,
+    #4bc28b 75%,
+    #3a8c72 100%);
+  box-shadow: 
+    0 0 22px rgba(108, 240, 194, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(15, 15, 15, 0.95);
+}
+
+/* Space-themed scrollbar arrows */
+::-webkit-scrollbar-button {
+  background: linear-gradient(180deg,
+    rgba(108, 240, 194, 0.08) 0%,
+    rgba(108, 240, 194, 0.03) 100%);
+  border: 1px solid rgba(108, 240, 194, 0.15);
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-button:hover {
+  background: linear-gradient(180deg,
+    rgba(108, 240, 194, 0.15) 0%,
+    rgba(108, 240, 194, 0.08) 100%);
+  border-color: rgba(108, 240, 194, 0.3);
+  box-shadow: 0 0 8px rgba(108, 240, 194, 0.2);
+}
+
+::-webkit-scrollbar-button:active {
+  background: linear-gradient(180deg,
+    rgba(108, 240, 194, 0.2) 0%,
+    rgba(108, 240, 194, 0.1) 100%);
+}
+
+/* Custom scrollbar for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6cf0c2 rgba(15, 15, 15, 0.95);
+}
+
+/* Space-themed scrollbar enhancements */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #6cf0c2 rgba(25, 25, 35, 0.95);
+}
+
+/* Floating space particles near scrollbar */
+.space-particles {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.space-particle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: radial-gradient(circle, #6cf0c2 0%, transparent 70%);
+  border-radius: 50%;
+  animation: particle-drift 8s linear infinite;
+}
+
+.space-particle:nth-child(2n) {
+  background: radial-gradient(circle, #62c2ff 0%, transparent 70%);
+  animation-duration: 12s;
+}
+
+.space-particle:nth-child(3n) {
+  background: radial-gradient(circle, #f472b6 0%, transparent 70%);
+  animation-duration: 10s;
+}
+
+@keyframes particle-drift {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(10vh) scale(1);
+  }
+  100% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Scroll progress indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 0%;
+  background: linear-gradient(180deg,
+    #6cf0c2 0%,
+    #4ad2a5 50%,
+    #2b8a6b 100%);
+  box-shadow: 0 0 8px rgba(108, 240, 194, 0.4);
+  z-index: 2;
+  transition: height 0.1s ease;
+  border-radius: 0 0 2px 2px;
+}
+
+/* Enhanced scrollbar glow effect */
+.scrollbar-glow {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 14px;
+  height: 80px;
+  background: radial-gradient(ellipse at center,
+    rgba(108, 240, 194, 0.2) 0%,
+    rgba(108, 240, 194, 0.05) 40%,
+    transparent 70%);
+  border-radius: 7px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.scrollbar-glow.active {
+  opacity: 1;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 0.4;
+  }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .contact-modal {

@@ -2283,5 +2283,117 @@ document.addEventListener('click', (e) => {
   }, 5000);
 })();
 
+// Space-Themed Scrollbar Enhancement - Non-Intrusive Version
+(() => {
+  let scrollbarInitialized = false;
+  
+  function initSpaceScrollbar() {
+    if (scrollbarInitialized) return;
+    scrollbarInitialized = true;
+    
+    // Create scroll progress indicator
+    const progressIndicator = document.createElement('div');
+    progressIndicator.className = 'scroll-progress';
+    document.body.appendChild(progressIndicator);
+
+    // Create space particles container
+    const particlesContainer = document.createElement('div');
+    particlesContainer.className = 'space-particles';
+    document.body.appendChild(particlesContainer);
+
+    // Create scrollbar glow effect
+    const scrollbarGlow = document.createElement('div');
+    scrollbarGlow.className = 'scrollbar-glow';
+    document.body.appendChild(scrollbarGlow);
+
+    // Throttle function for performance
+    function throttle(func, limit) {
+      let inThrottle;
+      return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      };
+    }
+
+    // Update scroll progress
+    const updateScrollProgress = throttle(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollProgress = Math.min((scrollTop / scrollHeight) * 100, 100);
+      
+      if (progressIndicator) {
+        progressIndicator.style.height = scrollProgress + '%';
+      }
+      
+      // Update glow position
+      const thumbHeight = 80;
+      const trackHeight = window.innerHeight;
+      const thumbPosition = (scrollTop / scrollHeight) * (trackHeight - thumbHeight);
+      
+      scrollbarGlow.style.top = thumbPosition + 'px';
+      scrollbarGlow.classList.add('active');
+      
+      setTimeout(() => {
+        scrollbarGlow.classList.remove('active');
+      }, 1500);
+    }, 16);
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+    // Create floating particles
+    const createParticle = () => {
+      const particle = document.createElement('div');
+      particle.className = 'space-particle';
+      
+      // Random horizontal position within the particles container
+      particle.style.left = Math.random() * 20 + 'px';
+      
+      particlesContainer.appendChild(particle);
+      
+      // Remove particle after animation completes
+      setTimeout(() => {
+        if (particle.parentNode) {
+          particle.parentNode.removeChild(particle);
+        }
+      }, 12000);
+    };
+
+    // Create particles periodically
+    setInterval(createParticle, 3000);
+
+    // Mouse proximity effect
+    const handleMouseMove = throttle((e) => {
+      const rect = document.documentElement.getBoundingClientRect();
+      const isNearScrollbar = e.clientX > rect.right - 30;
+      
+      if (isNearScrollbar) {
+        particlesContainer.style.opacity = '1';
+        particlesContainer.style.transform = 'scale(1.1)';
+      } else {
+        particlesContainer.style.opacity = '0.7';
+        particlesContainer.style.transform = 'scale(1)';
+      }
+    }, 16);
+
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    // Initialize particles container
+    particlesContainer.style.opacity = '0.7';
+    particlesContainer.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSpaceScrollbar);
+  } else {
+    initSpaceScrollbar();
+  }
+})();
+
 
 
