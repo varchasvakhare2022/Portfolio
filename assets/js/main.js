@@ -1937,11 +1937,11 @@ document.addEventListener('click', (e) => {
       website: 'https://police-agent-bot.netlify.app',
       image: 'assets/img/police_popup.png'
     },
-    'Mobile Banking App': {
-      description: 'Secure mobile banking application with biometric authentication and real-time transactions.',
-      github: 'https://github.com/varchasvakhare2022/mobile-banking-app',
-      website: 'https://banking-app-demo.netlify.app',
-      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=300&fit=crop&crop=center'
+    'Prime Properties': {
+      description: 'A comprehensive real estate platform built with React frontend and Spring Boot backend, featuring JWT authentication with role-based access for customers and developers.',
+      github: 'https://github.com/varchasvakhare2022/prime-properties',
+      website: 'https://prime-properties.up.railway.app',
+      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=500&h=300&fit=crop&crop=center'
     },
     'Blockchain Explorer': {
       description: 'Blockchain transaction explorer with real-time data visualization and smart contract analysis.',
