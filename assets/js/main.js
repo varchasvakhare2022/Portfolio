@@ -376,30 +376,140 @@ document.addEventListener('click', (e) => {
 
 // Old project modal code removed - replaced with new modal system
 
-// Contact modal open/close + Web3Forms submit handling
+// Performance Optimized Contact Modal
 (() => {
   const modal = document.getElementById('contactModal');
   if (!modal) return;
+  
+  // Cache DOM elements for better performance
   const openEls = document.querySelectorAll('[data-open-contact]');
   const form = document.getElementById('contactForm');
   const toasts = document.getElementById('toasts');
+  const dialog = modal.querySelector('.modal-dialog');
+  
+  // Use RAF for smooth animations
+  let animationFrame = null;
   
   const open = () => { 
     modal.classList.add('is-open'); 
     modal.setAttribute('aria-hidden','false'); 
-    modal.setAttribute('aria-modal','true'); 
-  };
-  const close = () => { 
-    modal.classList.remove('is-open'); 
-    modal.setAttribute('aria-hidden','true'); 
-    modal.setAttribute('aria-modal','false'); 
-    // Reset form when closing
-    if (form) form.reset();
+    modal.setAttribute('aria-modal','true');
+    
+    // Cancel any pending animation frame
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
+    
+    // Trigger entrance animation with RAF
+    animationFrame = requestAnimationFrame(() => {
+      if (dialog) {
+        dialog.style.transform = 'translate3d(0, 0, 0) scale3d(1, 1, 1)';
+        dialog.style.opacity = '1';
+      }
+    });
   };
   
+  const close = () => { 
+    // Cancel any pending animation frame
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
+    
+    // Add exit animation with RAF
+    animationFrame = requestAnimationFrame(() => {
+      if (dialog) {
+        dialog.style.transform = 'translate3d(0, 50px, 0) scale3d(0.8, 0.8, 1)';
+        dialog.style.opacity = '0';
+      }
+    });
+    
+    setTimeout(() => {
+      modal.classList.remove('is-open'); 
+      modal.setAttribute('aria-hidden','true'); 
+      modal.setAttribute('aria-modal','false');
+      // Reset form when closing
+      if (form) form.reset();
+    }, 300);
+  };
+  
+  // Optimized button interactions with throttling
+  const addRippleEffect = (button) => {
+    let lastClickTime = 0;
+    const throttleDelay = 100; // Prevent rapid clicks
+    
+    button.addEventListener('click', (e) => {
+      const now = Date.now();
+      if (now - lastClickTime < throttleDelay) return;
+      lastClickTime = now;
+      
+      const ripple = button.querySelector('.btn-ripple');
+      if (ripple) {
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        // Use transform3d for GPU acceleration
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.style.transform = 'translate3d(0, 0, 0) scale3d(0, 0, 0)';
+        ripple.style.animation = 'none';
+        
+        requestAnimationFrame(() => {
+          ripple.style.animation = 'ripple 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        });
+      }
+    });
+  };
+  
+  // Optimized input interactions with debouncing
+  const optimizeInputInteractions = (input) => {
+    let inputTimeout = null;
+    
+    input.addEventListener('focus', () => {
+      input.parentElement.classList.add('focused');
+    });
+    
+    input.addEventListener('blur', () => {
+      if (!input.value) {
+        input.parentElement.classList.remove('focused');
+      }
+    });
+    
+    // Debounced typing animation
+    input.addEventListener('input', () => {
+      if (inputTimeout) {
+        clearTimeout(inputTimeout);
+      }
+      
+      input.style.transform = 'translate3d(0, 0, 0) scale3d(1.02, 1.02, 1)';
+      
+      inputTimeout = setTimeout(() => {
+        input.style.transform = 'translate3d(0, 0, 0) scale3d(1, 1, 1)';
+      }, 100);
+    });
+  };
+  
+  // Add optimized event listeners
   openEls.forEach(el => el.addEventListener('click', open));
   modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', close));
-  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  
+  // Optimized keyboard event listener
+  const handleKeydown = (e) => {
+    if (e.key === 'Escape') close();
+  };
+  window.addEventListener('keydown', handleKeydown);
+  
+  // Add ripple effects to buttons
+  const submitBtn = modal.querySelector('.btn-primary');
+  const cancelBtn = modal.querySelector('.btn-secondary');
+  if (submitBtn) addRippleEffect(submitBtn);
+  if (cancelBtn) addRippleEffect(cancelBtn);
+  
+  // Optimize input interactions
+  const inputs = modal.querySelectorAll('.form-input');
+  inputs.forEach(optimizeInputInteractions);
   
   // Show toast notification
   const showToast = (message, type = 'success') => {
@@ -784,25 +894,39 @@ document.addEventListener('click', (e) => {
   onScroll();
 })();
 
-// Three.js low-poly 3D background with 2D fallback
+// Performance Optimized Three.js background with 60fps target
 (() => {
   const canvas = document.getElementById('bg3d');
   const hero = document.getElementById('hero');
   if (!(canvas instanceof HTMLCanvasElement) || !hero) return;
   
-  // Check if device is mobile
+  // Performance detection
   const isMobile = window.matchMedia('(max-width: 768px)').matches || 
                    'ontouchstart' in window || 
                    navigator.maxTouchPoints > 0;
   
   const brand = getComputedStyle(document.documentElement).getPropertyValue('--brand').trim() || '#6cf0c2';
   const hasWebGL = (() => {
-    try { const c = document.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); } catch { return false; }
+    try { 
+      const c = document.createElement('canvas'); 
+      return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); 
+    } catch { return false; }
   })();
+  
+  // Optimized resize with throttling
+  let resizeTimeout = null;
   const rect = () => hero.getBoundingClientRect();
-  const resize = () => { const r = rect(); canvas.width = r.width; canvas.height = r.height; };
+  const resize = () => { 
+    if (resizeTimeout) clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const r = rect(); 
+      canvas.width = r.width; 
+      canvas.height = r.height; 
+    }, 16); // ~60fps throttling
+  };
+  
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize, { passive: true });
 
   if (hasWebGL && window.THREE && !isMobile) {
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
@@ -2067,6 +2191,96 @@ document.addEventListener('click', (e) => {
   } else {
     initProjectModal();
   }
+})();
+
+// Performance Optimization Module - 60fps Target
+(() => {
+  // Throttle function for performance
+  function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    };
+  }
+  
+  // Debounce function for performance
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  
+  // Optimize scroll events
+  const optimizedScrollHandler = throttle(() => {
+    // Scroll-based animations here
+  }, 16); // ~60fps
+  
+  window.addEventListener('scroll', optimizedScrollHandler, { passive: true });
+  
+  // Optimize resize events
+  const optimizedResizeHandler = debounce(() => {
+    // Resize-based calculations here
+  }, 100);
+  
+  window.addEventListener('resize', optimizedResizeHandler, { passive: true });
+  
+  // Optimize mouse move events
+  const optimizedMouseMoveHandler = throttle((e) => {
+    // Mouse-based animations here
+  }, 16); // ~60fps
+  
+  document.addEventListener('mousemove', optimizedMouseMoveHandler, { passive: true });
+  
+  // Performance monitoring
+  let frameCount = 0;
+  let lastTime = performance.now();
+  
+  function measureFPS() {
+    frameCount++;
+    const currentTime = performance.now();
+    
+    if (currentTime - lastTime >= 1000) {
+      const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+      
+      // Log FPS in development
+      if (fps < 55) {
+        console.warn(`Low FPS detected: ${fps}fps`);
+      }
+      
+      frameCount = 0;
+      lastTime = currentTime;
+    }
+    
+    requestAnimationFrame(measureFPS);
+  }
+  
+  // Start FPS monitoring
+  requestAnimationFrame(measureFPS);
+  
+  // Optimize CSS animations with will-change
+  const animatedElements = document.querySelectorAll('.btn-primary, .btn-secondary, .form-input, .floating-dot, .modal-dialog');
+  animatedElements.forEach(el => {
+    el.style.willChange = 'transform, opacity';
+  });
+  
+  // Clean up will-change after animations
+  setTimeout(() => {
+    animatedElements.forEach(el => {
+      el.style.willChange = 'auto';
+    });
+  }, 5000);
 })();
 
 

@@ -639,31 +639,111 @@
     <!-- Contact Modal -->
     <div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-modal="false">
       <div class="modal-backdrop" data-close></div>
-      <div class="modal-dialog" role="document">
-        <button class="modal-close" data-close aria-label="Close">×</button>
+      <div class="modal-dialog contact-modal" role="document">
+        <button class="modal-close" data-close aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        
+        <!-- Animated background elements -->
+        <div class="contact-bg-effects">
+          <div class="floating-dot dot-1"></div>
+          <div class="floating-dot dot-2"></div>
+          <div class="floating-dot dot-3"></div>
+          <div class="floating-dot dot-4"></div>
+          <div class="floating-dot dot-5"></div>
+        </div>
+        
         <div class="modal-body">
-          <h3>Contact</h3>
-          <p class="muted">Fill the form and I’ll get back to you shortly.</p>
-          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+          <div class="contact-header">
+            <h3 class="contact-title">
+              <span class="title-text">Contact</span>
+              <span class="title-accent">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                </svg>
+              </span>
+            </h3>
+            <p class="contact-subtitle">Fill the form and I'll get back to you shortly.</p>
+          </div>
+          
+          <form id="contactForm" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
             <input type="hidden" name="access_key" value="{{ CONFIG.WEB3FORM_KEY }}" />
             <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio" />
             <input type="hidden" name="from_name" value="Portfolio Contact Form" />
             <input type="hidden" name="redirect" value="false" />
+            
             <div class="form-row">
-              <label for="cf_name">Name</label>
-              <input id="cf_name" name="name" type="text" placeholder="Your Name" required />
+              <div class="input-group">
+                <label for="cf_name" class="input-label">
+                  <span class="label-text">Name</span>
+                  <span class="label-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </span>
+                </label>
+                <div class="input-wrapper">
+                  <input id="cf_name" name="name" type="text" placeholder="Your Name" required class="form-input" />
+                  <div class="input-focus-ring"></div>
+                </div>
+              </div>
             </div>
+            
             <div class="form-row">
-              <label for="cf_email">Email</label>
-              <input id="cf_email" name="email" type="email" placeholder="you@example.com" required />
+              <div class="input-group">
+                <label for="cf_email" class="input-label">
+                  <span class="label-text">Email</span>
+                  <span class="label-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </span>
+                </label>
+                <div class="input-wrapper">
+                  <input id="cf_email" name="email" type="email" placeholder="you@example.com" required class="form-input" />
+                  <div class="input-focus-ring"></div>
+                </div>
+              </div>
             </div>
+            
             <div class="form-row">
-              <label for="cf_message">Message</label>
-              <textarea id="cf_message" name="message" rows="5" placeholder="Leave a message" required></textarea>
+              <div class="input-group">
+                <label for="cf_message" class="input-label">
+                  <span class="label-text">Message</span>
+                  <span class="label-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                  </span>
+                </label>
+                <div class="input-wrapper">
+                  <textarea id="cf_message" name="message" rows="5" placeholder="Leave a message" required class="form-input form-textarea"></textarea>
+                  <div class="input-focus-ring"></div>
+                </div>
+              </div>
             </div>
+            
             <div class="form-actions">
-              <button type="submit" class="btn">Send</button>
-              <button type="button" class="btn btn--ghost" data-close>Cancel</button>
+              <button type="submit" class="btn btn-primary contact-submit">
+                <span class="btn-text">Send Message</span>
+                <span class="btn-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                    <path d="M2 2l7.586 7.586"></path>
+                    <circle cx="11" cy="11" r="2"></circle>
+                  </svg>
+                </span>
+                <div class="btn-ripple"></div>
+              </button>
+              <button type="button" class="btn btn-secondary" data-close>
+                <span class="btn-text">Cancel</span>
+              </button>
             </div>
           </form>
         </div>

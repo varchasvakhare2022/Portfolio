@@ -1187,7 +1187,7 @@ select:focus {
 
 @keyframes photo-float {
   0%, 100% { 
-    transform: translateY(0px) scale(1) rotate(0deg);
+    transform: translateY(0px) scale(1) rotate(0deg); 
     opacity: 0.8;
     filter: hue-rotate(0deg) brightness(1);
   }
@@ -1906,23 +1906,561 @@ select:focus {
 /* Selection */
 ::selection{background:color-mix(in oklab, var(--brand) 40%, transparent);color:var(--text)}
 
-/* Modal */
-.modal{position:fixed;inset:0;display:none;place-items:center;z-index:80}
-.modal.is-open{display:grid}
-.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
-.modal-dialog{position:relative;max-width:900px;width:92%;border-radius:16px;border:1px solid var(--border);background:var(--bg-elev);box-shadow:var(--shadow);overflow:hidden}
-.modal-close{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer}
-.modal-media{height:420px;background:#0f0f0f center/cover no-repeat}
-.modal-body{padding:16px}
-.muted{color:var(--muted)}
+/* Enhanced Modal with Animations */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  z-index: 80;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
-/* Contact form */
-#contactModal .modal-dialog{max-width:560px}
-#contactModal .form-row{display:grid;gap:6px;margin:10px 0}
-#contactModal label{font-size:14px;opacity:.8}
-#contactModal input,#contactModal textarea{width:100%;padding:12px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text)}
-#contactModal input:focus,#contactModal textarea:focus{outline:2px solid color-mix(in oklab, var(--brand) 40%, transparent);outline-offset:2px}
-#contactModal .form-actions{display:flex;gap:10px;margin-top:12px}
+.modal.is-open {
+  display: grid;
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.is-open .modal-backdrop {
+  opacity: 1;
+}
+
+.modal-dialog {
+  position: relative;
+  max-width: 900px;
+  width: 92%;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transform: scale(0.8) translateY(50px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal.is-open .modal-dialog {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  transform: rotate(90deg);
+  background: var(--brand);
+  color: var(--bg);
+}
+
+.modal-media {
+  height: 420px;
+  background: #0f0f0f center/cover no-repeat;
+}
+
+.modal-body {
+  padding: 16px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Enhanced Contact Form */
+.contact-modal {
+  max-width: 600px;
+  background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(20, 20, 30, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(108, 240, 194, 0.2);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(108, 240, 194, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6cf0c2, #62c2ff, #f472b6);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Animated background effects */
+.contact-bg-effects {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #6cf0c2 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.dot-1 { top: 20%; left: 10%; animation-delay: 0s; }
+.dot-2 { top: 60%; right: 15%; animation-delay: 1.2s; }
+.dot-3 { top: 40%; left: 5%; animation-delay: 2.4s; }
+.dot-4 { top: 80%; right: 25%; animation-delay: 3.6s; }
+.dot-5 { top: 30%; right: 5%; animation-delay: 4.8s; }
+
+/* Contact header */
+.contact-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #ffffff 0%, #6cf0c2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.title-accent {
+  animation: sparkle 2s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-accent svg {
+  width: 20px;
+  height: 20px;
+  stroke: #6cf0c2;
+  transition: all 0.3s ease;
+}
+
+.contact-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Enhanced form styling */
+.contact-form {
+  position: relative;
+  z-index: 2;
+}
+
+.form-row {
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.label-icon {
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #6cf0c2;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 0 0 4px rgba(108, 240, 194, 0.1),
+    0 8px 25px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.form-input:focus::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.input-focus-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6cf0c2, #62c2ff);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.form-input:focus + .input-focus-ring {
+  opacity: 0.3;
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+/* Enhanced buttons with stunning animations */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn-primary {
+  flex: 1;
+  position: relative;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #6cf0c2 0%, #4ad2a5 50%, #2b8a6b 100%);
+  border: none;
+  border-radius: 12px;
+  color: #000000;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 
+    0 4px 15px rgba(108, 240, 194, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.3px;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 15px 35px rgba(108, 240, 194, 0.4),
+    0 0 0 1px rgba(108, 240, 194, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #7af5d2 0%, #5ae2b5 50%, #3baa7b 100%);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.98);
+  transition: all 0.1s ease;
+}
+
+.btn-secondary {
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(108, 240, 194, 0.1), rgba(98, 194, 255, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-secondary:hover::before {
+  opacity: 1;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(108, 240, 194, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(108, 240, 194, 0.2);
+  color: #ffffff;
+}
+
+.btn-icon {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.btn-primary:hover .btn-icon {
+  transform: translateX(3px) scale(1.1);
+}
+
+.btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  transform: scale(0);
+  animation: ripple 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced modal close button */
+.contact-modal .modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.contact-modal .modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+/* Performance Optimized CSS - 60fps Smooth Animations */
+
+/* GPU Acceleration for all animated elements */
+.modal,
+.modal-dialog,
+.btn-primary,
+.btn-secondary,
+.form-input,
+.floating-dot,
+.title-accent,
+.input-focus-ring,
+.btn-ripple {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimized animations with transform3d for GPU acceleration */
+@keyframes shimmer {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: translate3d(0, -20px, 0) scale3d(1.2, 1.2, 1);
+    opacity: 1;
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% { 
+    transform: scale3d(1, 1, 1) rotateZ(0deg);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale3d(1.2, 1.2, 1) rotateZ(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale3d(1, 1, 1); opacity: 0.3; }
+  50% { transform: scale3d(1.05, 1.05, 1); opacity: 0.1; }
+  100% { transform: scale3d(1, 1, 1); opacity: 0.3; }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale3d(0, 0, 0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale3d(1, 1, 1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale3d(2, 2, 0);
+    opacity: 0;
+  }
+}
+
+/* Optimized transitions with hardware acceleration */
+.modal {
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-dialog {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+
+.btn-primary,
+.btn-secondary {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              box-shadow 0.4s ease,
+              background 0.4s ease;
+}
+
+.form-input {
+  transition: transform 0.3s ease, 
+              border-color 0.3s ease,
+              background 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+/* Optimized floating dots with reduced complexity */
+.floating-dot {
+  animation: float 6s ease-in-out infinite;
+  transform: translateZ(0);
+}
+
+/* Optimized button hover effects */
+.btn-primary:hover {
+  transform: translate3d(0, -3px, 0) scale3d(1.02, 1.02, 1);
+}
+
+.btn-secondary:hover {
+  transform: translate3d(0, -2px, 0);
+}
+
+/* Optimized input focus effects */
+.form-input:focus {
+  transform: translate3d(0, -2px, 0);
+}
+
+/* Optimized icon animations */
+.btn-icon {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-primary:hover .btn-icon {
+  transform: translate3d(3px, 0, 0) scale3d(1.1, 1.1, 1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .contact-modal {
+    max-width: 95%;
+    margin: 1rem;
+  }
+  
+  .contact-title {
+    font-size: 2rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
 
 /* Toasts */
 .toasts{position:fixed;right:14px;bottom:14px;display:grid;gap:8px;z-index:90}
