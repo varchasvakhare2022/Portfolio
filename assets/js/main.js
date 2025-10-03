@@ -1938,7 +1938,7 @@ document.addEventListener('click', (e) => {
       image: 'assets/img/police_popup.png'
     },
     'Prime Properties': {
-      description: 'Full-stack real estate platform with React frontend and Spring Boot backend, featuring JWT authentication and role-based access.',
+      description: 'Full-stack real estate platform with React & Spring Boot, featuring JWT authentication and role-based access.',
       github: 'https://github.com/varchasvakhare2022/prime-properties',
       website: 'https://prime-properties.up.railway.app',
       image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=500&h=300&fit=crop&crop=center'
